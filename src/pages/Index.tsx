@@ -14,6 +14,7 @@ const Index = () => {
       <DeviceShowcase />
       <ServicesGallery />
       <Metrics />
+      <Journey />
       <ContactCard />
     </main>
   );
