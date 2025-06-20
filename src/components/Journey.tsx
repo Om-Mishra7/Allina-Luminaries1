@@ -1,17 +1,315 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const Journey: React.FC = () => {
-  return (
-    <section className="absolute w-[1440px] h-[980px] left-0 top-[3546px] max-md:w-full max-md:h-[600px] max-md:left-0 max-md:top-[2600px] max-sm:h-[400px] max-sm:top-[2400px]">
-      <h2 className="gap-2.5 text-[#06153A] text-center text-[25px] font-normal tracking-[4px] absolute w-[333px] h-[50px] p-2.5 left-[553px] -top-20 max-sm:text-lg max-sm:tracking-[2px] max-sm:w-full max-sm:text-center max-sm:left-0">
-        OUR JOURNEY CURVE
-      </h2>
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [animationProgress, setAnimationProgress] = useState(0);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+  const [isSectionInView, setIsSectionInView] = useState(false);  useEffect(() => {
+    const section = sectionRef.current;
+    const img = imgRef.current;
+    
+    if (!section || !img) return;    let currentProgress = 0;
+    let sectionInView = false;
+    let animationComplete = false;
+    let isScrollLocked = false;
+    let lockedScrollPosition = 0;
+    let isInitialized = false;
+    let lockEnforceTimer: number | null = null;
+
+    // Initialize the animation state properly
+    const initializeAnimation = () => {
+      if (img && !isInitialized) {
+        const containerHeight = window.innerHeight;
+        const initialY = containerHeight * 0.5;
+        img.style.transform = `translate(-50%, ${initialY}px)`;
+        currentProgress = 0;
+        animationComplete = false;
+        setAnimationProgress(0);
+        setIsAnimationComplete(false);
+        isInitialized = true;
+        console.log('Animation initialized');
+      }    };    // Better detection for when section reaches top of screen with scroll lock
+    const handlePageScroll = (e: Event) => {
+      const rect = section.getBoundingClientRect();
+      const isAtTop = rect.top <= 5; // Stricter threshold for immediate detection
+        console.log('Scroll check:', { 
+        rectTop: rect.top, 
+        rectBottom: rect.bottom, 
+        isAtTop, 
+        sectionInView, 
+        animationComplete,
+        currentProgress,
+        isScrollLocked,
+        lockedScrollPosition
+      });
+
+      // Ensure animation is initialized
+      initializeAnimation();      // If section top reaches viewport top and animation isn't complete, lock immediately
+      if (isAtTop && !animationComplete) {        
+        if (!isScrollLocked) {
+          // Calculate the exact position where section top meets viewport top
+          const currentScroll = window.pageYOffset;
+          const sectionTop = currentScroll + rect.top;
+          lockedScrollPosition = sectionTop;
+          isScrollLocked = true;
+          console.log('IMMEDIATE LOCK at position:', lockedScrollPosition, 'currentScroll:', currentScroll);
+          
+          // Force scroll to the exact lock position
+          window.scrollTo({
+            top: lockedScrollPosition,
+            behavior: 'auto'
+          });
+          
+          // Start continuous monitoring to enforce lock
+          if (lockEnforceTimer) clearInterval(lockEnforceTimer);
+          lockEnforceTimer = setInterval(() => {
+            if (isScrollLocked && !animationComplete && window.pageYOffset !== lockedScrollPosition) {
+              console.log('Enforcing scroll lock - correcting position from', window.pageYOffset, 'to', lockedScrollPosition);
+              window.scrollTo({
+                top: lockedScrollPosition,
+                behavior: 'auto'
+              });
+            }
+          }, 10) as unknown as number;
+        }
+
+        sectionInView = true;
+        setIsSectionInView(true);
+          } else if (!isAtTop && rect.top > 20) {
+        // Reset animation if user scrolls significantly away from section
+        if (sectionInView) {          console.log('Resetting animation - user scrolled away');
+          currentProgress = 0;
+          animationComplete = false;
+          isScrollLocked = false;
+          lockedScrollPosition = 0; // Reset lock position
+          isInitialized = false; // Force re-initialization
+          setAnimationProgress(0);
+          setIsAnimationComplete(false);
+          
+          // Clear lock enforcement timer
+          if (lockEnforceTimer) {
+            clearInterval(lockEnforceTimer);
+            lockEnforceTimer = null;
+          }
+        }
+        sectionInView = false;
+        setIsSectionInView(false);
+      } else if (isAtTop && animationComplete) {
+        // Animation is complete, allow normal scrolling
+        sectionInView = true;
+        isScrollLocked = false;
+        setIsSectionInView(true);
+        console.log('Animation complete, unlocking scroll');
+        
+        // Clear lock enforcement timer
+        if (lockEnforceTimer) {
+          clearInterval(lockEnforceTimer);
+          lockEnforceTimer = null;
+        }
+      }
+    };    // More aggressive scroll prevention
+    const preventAllScroll = (e: Event) => {
+      if (isScrollLocked && !animationComplete) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Force scroll position to locked position immediately
+        setTimeout(() => {
+          window.scrollTo({
+            top: lockedScrollPosition,
+            behavior: 'auto'
+          });
+        }, 0);
+        
+        console.log('Preventing scroll, enforcing lock at:', lockedScrollPosition);
+        return false;
+      }
+    };    // Initial check
+    initializeAnimation();
+    handlePageScroll(new Event('scroll'));
+    
+    // Listen to scroll events for real-time detection
+    window.addEventListener('scroll', handlePageScroll, { passive: false });
+    window.addEventListener('scroll', preventAllScroll, { passive: false });
+    window.addEventListener('wheel', preventAllScroll, { passive: false });
+    window.addEventListener('touchmove', preventAllScroll, { passive: false });
+
+    // Intersection Observer as backup
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          handlePageScroll(new Event('scroll')); // Trigger manual check when section is visible
+        }
+      },
+      { 
+        threshold: [0, 0.1] // Detect when section enters viewport
+      }
+    );
+
+    observer.observe(section);
+
+    const handleImageLoad = () => {
+      const svgHeight = img.naturalHeight || img.height;
+      const containerHeight = window.innerHeight;
+
+      // Initial Y: SVG top at 50% of container
+      const initialY = containerHeight * 0.5;      // Final Y: SVG bottom at 50% of container (this is the target end position)
+      const finalY = (containerHeight * 0.5) - svgHeight;
+
+      function updateAnimation(progress: number) {
+        // Ensure smooth upward movement: start high, end low
+        const currentY = initialY - (initialY - finalY) * progress;
+        img.style.transform = `translate(-50%, ${currentY}px)`;
+        
+        currentProgress = progress;
+        setAnimationProgress(progress);        // Check if SVG bottom has reached 50% of container height (middle of section)
+        const svgBottom = currentY + svgHeight;
+        const svgTop = currentY;
+        const targetBottomPosition = containerHeight * 0.5; // 50% from top = middle of section
+        const targetTopPosition = containerHeight * 0.5; // 50% from top for SVG top
+        const bottomPercentageFromTop = (svgBottom / containerHeight) * 100;
+        const topPercentageFromTop = (svgTop / containerHeight) * 100;
+        
+        console.log(`SVG bottom at ${bottomPercentageFromTop.toFixed(1)}%, SVG top at ${topPercentageFromTop.toFixed(1)}% from top`);
+          // Animation should end when:
+        // - SVG bottom reaches 50% (going down/forward) OR
+        // - SVG top reaches 50% (going up/reverse)
+        if (svgBottom <= targetBottomPosition || svgTop >= targetTopPosition) {
+          animationComplete = true;
+          setIsAnimationComplete(true);
+          console.log('Animation complete: SVG reached boundary position');
+          
+          // Clear lock enforcement timer when animation completes
+          if (lockEnforceTimer) {
+            clearInterval(lockEnforceTimer);
+            lockEnforceTimer = null;
+          }
+        } else {
+          animationComplete = false;
+          setIsAnimationComplete(false);
+        }
+      }      // Handle scroll events with bidirectional animation
+      function handleWheelScroll(e: WheelEvent) {
+        console.log('Wheel event:', { sectionInView, animationComplete, isScrollLocked, deltaY: e.deltaY });
+        
+        // Only handle wheel events when section is locked and animation isn't complete
+        if (isScrollLocked && !animationComplete) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          console.log('Processing wheel for animation');
+          
+          // Allow both directions for animation
+          if (e.deltaY > 0) {
+            // Downward scroll - progress animation forward
+            const scrollSensitivity = Math.abs(e.deltaY) / 1000;
+            const delta = Math.min(scrollSensitivity, 0.01);
+            const newProgress = Math.min(1, currentProgress + delta);
+            console.log('Forward animation progress from', currentProgress, 'to', newProgress);
+            updateAnimation(newProgress);
+          } else if (e.deltaY < 0) {
+            // Upward scroll - progress animation backward
+            const scrollSensitivity = Math.abs(e.deltaY) / 1000;
+            const delta = Math.min(scrollSensitivity, 0.01);
+            const newProgress = Math.max(0, currentProgress - delta);
+            console.log('Reverse animation progress from', currentProgress, 'to', newProgress);
+            updateAnimation(newProgress);
+          }
+          
+          // Enforce scroll lock position after animation update
+          setTimeout(() => {
+            window.scrollTo({
+              top: lockedScrollPosition,
+              behavior: 'auto'
+            });
+          }, 0);
+        }
+      }      // Also prevent regular scroll events when locked
+      function preventScroll(e: Event) {
+        if (isScrollLocked && !animationComplete) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Preventing page scroll during animation');
+          
+          // Enforce lock position
+          setTimeout(() => {
+            window.scrollTo({
+              top: lockedScrollPosition,
+              behavior: 'auto'
+            });
+          }, 0);
+        }
+      }// Initial position
+      updateAnimation(0);
+
+      // Add scroll listeners with better control
+      window.addEventListener('wheel', handleWheelScroll, { passive: false });
+      window.addEventListener('scroll', preventScroll, { passive: false });
+
+      return () => {
+        window.removeEventListener('wheel', handleWheelScroll);
+        window.removeEventListener('scroll', preventScroll);
+      };
+    };
+
+    if (img.complete) {
+      handleImageLoad();
+    } else {
+      img.onload = handleImageLoad;
+    }    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handlePageScroll);
+      window.removeEventListener('scroll', preventAllScroll);
+      window.removeEventListener('wheel', preventAllScroll);
+      window.removeEventListener('touchmove', preventAllScroll);
       
-      <div className="w-full h-full">
-        <div
-          dangerouslySetInnerHTML={{
-            __html:
-              "<svg id=\"410:1040\" layer-name=\"Mask group\" width=\"1440\" height=\"980\" viewBox=\"0 0 1440 980\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" class=\"journey-svg\" style=\"width: 1440px; height: 980px\"> <mask id=\"mask0_410_1040\" style=\"mask-type:alpha\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"0\" width=\"1440\" height=\"980\"> <rect width=\"1440\" height=\"980\" fill=\"url(#paint0_linear_410_1040)\"></rect> </mask> <g mask=\"url(#mask0_410_1040)\"> <line x1=\"51.9879\" y1=\"970\" x2=\"51.9879\" y2=\"1246\" stroke=\"white\"></line> <g filter=\"url(#filter0_dd_410_1040)\"> <path d=\"M51.4879 970C51.4879 970 1368.88 970 1381.26 1288.5C1393.64 1607 281.203 1639.5 249.023 1891C216.843 2142.5 1171.35 2187 1165.9 2417C1160.46 2647 366.605 2755.5 481.213 2890C549.951 2970.67 661.765 2935.51 713.899 3028\" stroke=\"#DDB9A2\" stroke-width=\"4\"></path> </g> <g filter=\"url(#filter1_d_410_1040)\"> <ellipse cx=\"51.4879\" cy=\"970\" rx=\"5.94091\" ry=\"6\" fill=\"#DDB9A2\"></ellipse> </g> <path d=\"M51.1865 837.496C51.1763 836.673 51.8405 836 52.6635 836C53.4864 836 54.1507 836.673 54.1404 837.496L52.6635 955.646L51.1865 837.496Z\" fill=\"#DDB9A2\"></path> <text fill=\"#DDB9A2\" xml:space=\"preserve\" style=\"white-space: pre\" font-family=\"Inter\" font-size=\"23.3311\" letter-spacing=\"0em\"><tspan x=\"86.9064\" y=\"812.48\">BIRTH</tspan></text> <text fill=\"white\" xml:space=\"preserve\" style=\"white-space: pre\" font-family=\"Inter\" font-size=\"16.6651\" letter-spacing=\"0em\"><tspan x=\"95.9932\" y=\"863.382\">Lorem Ipsum </tspan><tspan x=\"95.9932\" y=\"893.379\">Dolor </tspan><tspan x=\"95.9932\" y=\"923.376\">Sit Amet</tspan></text> <mask id=\"mask1_410_1040\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"750\" width=\"104\" height=\"104\"> <path d=\"M0 750H103.327V853.323H0V750Z\" fill=\"white\"></path> </mask> <g mask=\"url(#mask1_410_1040)\"> <path d=\"M58.3355 789.444H57.0522V783.865H59.9627L58.3355 789.444ZM58.0413 790.235C57.9372 790.355 57.8492 790.475 57.779 790.585L57.779 790.585C57.7185 790.68 57.6696 790.768 57.631 790.844H55.6824C55.6057 790.693 55.4883 790.493 55.3198 790.288L55.3196 790.288C55.3049 790.27 55.2881 790.252 55.2726 790.235H58.0413ZM54.5133 782.312C54.7378 781.969 54.934 781.641 55.1628 781.381L55.163 781.38C55.5311 780.958 56.0878 780.716 56.6527 780.716H56.6528H56.6541C56.7491 780.716 56.8443 780.723 56.9388 780.736C57.2482 780.782 57.5159 780.894 57.7614 781.062C58.0058 781.23 58.2258 781.456 58.4194 781.724C58.6173 781.997 58.8082 782.316 59.04 782.63C59.1523 782.782 59.2771 782.932 59.4177 783.074H53.9111C54.1552 782.834 54.3441 782.568 54.5131 782.312L54.5133 782.312ZM54.9119 789.444L53.3451 783.865H56.2613V789.444H54.9119ZM61.3885 812.263H57.1949L57.1947 799.159L61.3885 802.115V812.263ZM50.9348 799.907V812.263H46.8314L46.8315 791.864L50.9348 789.4L50.9348 793.65L50.9343 793.649V797.363V798.427V799.907H50.9348ZM57.1947 798.191L57.1946 791.635H58.1674L58.2615 791.367C58.2637 791.362 58.2717 791.341 58.2847 791.311C58.3303 791.207 58.4401 790.985 58.6152 790.778L58.6154 790.777C58.7362 790.633 58.8867 790.496 59.0643 790.398C59.2437 790.299 59.4468 790.235 59.7046 790.235L59.821 790.234V789.444H59.1593L60.7866 783.865H61.1131C61.1329 783.866 61.158 783.868 61.1891 783.868C61.2235 783.868 61.2571 783.867 61.2899 783.865H61.9412V783.074H61.1213C61.0054 783.067 60.884 783.044 60.7633 783.004C60.6178 782.957 60.4729 782.889 60.3417 782.81C60.0866 782.656 59.8773 782.433 59.6757 782.16C59.4742 781.889 59.2848 781.572 59.0602 781.261C58.8242 780.935 58.5438 780.641 58.2096 780.411C57.8758 780.181 57.4872 780.017 57.0524 779.954C57.0191 779.949 56.986 779.947 56.9527 779.943V777.93H56.1618V779.972C55.554 780.08 54.9855 780.383 54.568 780.859C54.2748 781.195 54.0638 781.557 53.8526 781.877L53.8525 781.877C53.6416 782.198 53.4327 782.475 53.169 782.675C53.0168 782.791 52.8404 782.895 52.6605 782.966C52.5013 783.029 52.3393 783.066 52.1855 783.074H51.1733V783.865H52.0227C52.0568 783.867 52.0917 783.868 52.1276 783.868C52.1645 783.868 52.2007 783.867 52.2365 783.865H52.5237L54.0904 789.444H53.4924V790.234L53.6088 790.235C53.8707 790.235 54.0763 790.301 54.2577 790.402C54.5264 790.553 54.7338 790.798 54.8667 791.009L54.8668 791.009C54.9336 791.114 54.9823 791.209 55.0128 791.276C55.0282 791.309 55.0392 791.336 55.0458 791.352L55.0455 791.351L55.0526 791.37L55.0534 791.372L55.0539 791.373L55.146 791.635H56.4037L56.4038 797.634L51.7258 794.337V788.002L46.8315 790.941V790.225V789.84V785.444H46.0406V789.84V790.225V791.416L41.1473 794.355V813.054H41.9382V794.802L46.0406 792.339V813.054H51.3302H51.7258V798.31H51.7252V797.479H51.7258V797.362V795.304L56.4038 798.602L56.4039 813.054H62.1793V801.705L57.1947 798.191Z\" fill=\"#DDB9A2\"></path> </g> <mask id=\"mask2_410_1040\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"750\" width=\"104\" height=\"104\"> <path d=\"M0 750H103.327V853.323H0V750Z\" fill=\"white\"></path> </mask> <g mask=\"url(#mask2_410_1040)\"> <path d=\"M32.0868 820.052L31.5407 818.542C31.411 818.178 31.3058 817.819 31.2068 817.495H31.189C31.095 817.822 31.0023 818.185 30.8853 818.536L30.3557 820.052H32.0868ZM30.1539 820.907L29.5801 822.645H28.3779L30.4975 816.653H31.9867L34.1695 822.645H32.9117L32.2948 820.907H30.1539Z\" fill=\"#DDB9A2\"></path> </g> <mask id=\"mask3_410_1040\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"750\" width=\"104\" height=\"104\"> <path d=\"M0 750H103.327V853.323H0V750Z\" fill=\"white\"></path> </mask> <g mask=\"url(#mask3_410_1040)\"> <path d=\"M38.2477 816.653H39.3917V821.689H42.1434V822.645H38.2477V816.653Z\" fill=\"#DDB9A2\"></path> </g> <mask id=\"mask4_410_1040\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"750\" width=\"104\" height=\"104\"> <path d=\"M0 750H103.327V853.323H0V750Z\" fill=\"white\"></path> </mask> <g mask=\"url(#mask4_410_1040)\"> <path d=\"M46.222 816.653H47.366V821.689H50.1178V822.645H46.222V816.653Z\" fill=\"#DDB9A2\"></path> </g> <mask id=\"mask5_410_1040\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"750\" width=\"104\" height=\"104\"> <path d=\"M0 750H103.327V853.323H0V750Z\" fill=\"white\"></path> </mask> <g mask=\"url(#mask5_410_1040)\"> <path d=\"M55.3406 822.645H54.1967V816.653H55.3406V822.645Z\" fill=\"#DDB9A2\"></path> </g> <mask id=\"mask6_410_1040\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"750\" width=\"104\" height=\"104\"> <path d=\"M0 750H103.327V853.323H0V750Z\" fill=\"white\"></path> </mask> <g mask=\"url(#mask6_410_1040)\"> <path d=\"M59.8596 822.645V816.653H61.2349L62.9649 819.23C63.42 819.931 63.7857 820.599 64.0918 821.274L64.1146 821.267C64.0271 820.462 64.0182 819.741 64.0182 818.877V816.653H65.0875V822.645H63.8678L62.1205 819.981C61.6846 819.287 61.2425 818.555 60.9073 817.86L60.8756 817.867C60.92 818.674 60.9288 819.446 60.9288 820.345V822.645H59.8596Z\" fill=\"#DDB9A2\"></path> </g> <mask id=\"mask7_410_1040\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"750\" width=\"104\" height=\"104\"> <path d=\"M0 750H103.327V853.323H0V750Z\" fill=\"white\"></path> </mask> <g mask=\"url(#mask7_410_1040)\"> <path d=\"M72.8663 820.052L72.3203 818.542C72.1906 818.178 72.0853 817.819 71.9863 817.495H71.9685C71.8746 817.822 71.7818 818.185 71.6649 818.536L71.1352 820.052H72.8663ZM70.9335 820.907L70.3596 822.645H69.1575L71.2771 816.653H72.7663L74.9491 822.645H73.6913L73.0743 820.907H70.9335Z\" fill=\"#DDB9A2\"></path> </g> <path d=\"M789.333 890.481C789.323 889.666 789.981 889 790.796 889C791.611 889 792.268 889.666 792.258 890.481L790.796 1008.65L789.333 890.481Z\" fill=\"#DDB9A2\"></path> <text fill=\"#DDB9A2\" xml:space=\"preserve\" style=\"white-space: pre\" font-family=\"Inter\" font-size=\"23.3311\" letter-spacing=\"0em\"><tspan x=\"829.545\" y=\"865.48\">2003</tspan></text> <text fill=\"white\" xml:space=\"preserve\" style=\"white-space: pre\" font-family=\"Inter\" font-size=\"16.6651\" letter-spacing=\"0em\"><tspan x=\"833.998\" y=\"916.059\">Lorem Ipsum </tspan><tspan x=\"833.998\" y=\"946.056\">Dolor </tspan><tspan x=\"833.998\" y=\"976.053\">Sit Amet</tspan></text> </g> <defs> <filter id=\"filter0_dd_410_1040\" x=\"38.4879\" y=\"955\" width=\"1357.88\" height=\"2086.98\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\"> <feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"></feFlood> <feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"></feColorMatrix> <feOffset></feOffset> <feGaussianBlur stdDeviation=\"6.5\"></feGaussianBlur> <feComposite in2=\"hardAlpha\" operator=\"out\"></feComposite> <feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.866667 0 0 0 0 0.72549 0 0 0 0 0.635294 0 0 0 1 0\"></feColorMatrix> <feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_410_1040\"></feBlend> <feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"></feColorMatrix> <feOffset></feOffset> <feGaussianBlur stdDeviation=\"6.5\"></feGaussianBlur> <feComposite in2=\"hardAlpha\" operator=\"out\"></feComposite> <feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.866667 0 0 0 0 0.72549 0 0 0 0 0.635294 0 0 0 1 0\"></feColorMatrix> <feBlend mode=\"normal\" in2=\"effect1_dropShadow_410_1040\" result=\"effect2_dropShadow_410_1040\"></feBlend> <feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect2_dropShadow_410_1040\" result=\"shape\"></feBlend> </filter> <filter id=\"filter1_d_410_1040\" x=\"32.547\" y=\"951\" width=\"37.8818\" height=\"38\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\"> <feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"></feFlood> <feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"></feColorMatrix> <feOffset></feOffset> <feGaussianBlur stdDeviation=\"6.5\"></feGaussianBlur> <feComposite in2=\"hardAlpha\" operator=\"out\"></feComposite> <feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.866667 0 0 0 0 0.72549 0 0 0 0 0.635294 0 0 0 1 0\"></feColorMatrix> <feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_410_1040\"></feBlend> <feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_410_1040\" result=\"shape\"></feBlend> </filter> <linearGradient id=\"paint0_linear_410_1040\" x1=\"720\" y1=\"0\" x2=\"720\" y2=\"980\" gradientUnits=\"userSpaceOnUse\"> <stop stop-color=\"#D9D9D9\" stop-opacity=\"0\"></stop> <stop offset=\"0.528846\" stop-color=\"#D9D9D9\"></stop> <stop offset=\"1\" stop-color=\"#D9D9D9\" stop-opacity=\"0\"></stop> </linearGradient> </defs> </svg>",
+      // Clear lock enforcement timer
+      if (lockEnforceTimer) {
+        clearInterval(lockEnforceTimer);
+      }
+      
+      if (img) {
+        img.onload = null;
+      }
+    };
+  }, []); // Remove dependencies to prevent re-running
+
+  return (
+    <section 
+      ref={sectionRef}
+      className="relative w-full h-screen overflow-hidden bg-black"
+    >
+      {/* Journey Text - Only visible in this section */}
+      <div 
+        className="absolute top-[10%] left-1/2 transform -translate-x-1/2 text-2xl font-bold z-20"
+        style={{ 
+          fontFamily: "'Courier New', Courier, monospace",
+          color: 'goldenrod' 
+        }}
+      >
+        Our Journey
+      </div>
+
+      {/* Container with mask for the SVG animation */}
+      <div 
+        className="absolute inset-0 w-full h-full flex justify-center items-start overflow-hidden"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 1) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 1) 100%)'        }}
+      >
+        <img
+          ref={imgRef}
+          src="/animation.svg"
+          alt="Journey Animation"
+          className="absolute"
+          style={{
+            left: '50%',
+            transform: 'translate(-50%, 50vh)', // Initial position
+            maxWidth: '100%',
+            height: 'auto',
+            transition: 'none' // No CSS transition, we control it manually
           }}
         />
       </div>
