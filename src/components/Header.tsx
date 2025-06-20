@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import allinaLogoLight from '/images/AllinaHeader.svg';
 import allinaLogoDark from '/images/Allina.svg';
@@ -13,6 +13,25 @@ export const Header: React.FC = () => {
   const isDark = theme === 'dark';
   const logoSrc = isDark ? allinaLogoDark : allinaLogoLight;
   const headerTextColor = isDark ? '#DDB9A2' : '#06153A';
+  const location = useLocation();
+
+  const NavLink = ({ to, children }: { to: string; children: React.ReactNode }) => {
+    const isActive = location.pathname === to;
+    return (
+      <Link
+        to={to}
+        className="relative uppercase tracking-[2.5px] md:tracking-[3.2px] text-lg md:text-xl transition-colors duration-700 group"
+        style={{ color: headerTextColor, fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+      >
+        {children}
+        <span 
+          className={`absolute left-0 bottom-0 w-0 h-[2px] bg-current transition-all duration-300 ${
+            isActive ? 'w-1/2' : 'group-hover:w-1/2'
+          }`}
+        />
+      </Link>
+    );
+  };
 
   // Responsive: hide nav links on small screens, always show ☰
   return ( 
@@ -34,75 +53,93 @@ export const Header: React.FC = () => {
           {/* Nav Links + Hamburger */}
           <div className="flex items-center gap-6 md:gap-10 ml-auto">
             <div className="hidden sm:flex items-center gap-6 md:gap-10">
-              <Link
-                to="/about"
-                className="uppercase tracking-[2.5px] md:tracking-[3.2px] text-lg md:text-xl transition-colors duration-700"
-                style={{ color: headerTextColor, fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-              >ABOUT</Link>
-              <Link
-                to="/projects"
-                className="uppercase tracking-[2.5px] md:tracking-[3.2px] text-lg md:text-xl transition-colors duration-700"
-                style={{ color: headerTextColor, fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-              >PROJECTS</Link>
-              <Link
-                to="/services"
-                className="uppercase tracking-[2.5px] md:tracking-[3.2px] text-lg md:text-xl transition-colors duration-700"
-                style={{ color: headerTextColor, fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-              >SERVICES</Link>
+              <NavLink to="/about">ABOUT</NavLink>
+              <NavLink to="/projects">PROJECTS</NavLink>
+              <NavLink to="/services">SERVICES</NavLink>
             </div>
-            {/* Hamburger */}
+            {/* Hamburger/Close Toggle */}
             <button
-              className="flex items-center justify-center w-10 h-10 rounded transition-colors duration-700 focus:outline-none"
-              aria-label="Open menu"
-              onClick={() => setDrawerOpen(true)}
+              className="flex items-center justify-center w-10 h-10 rounded transition-all duration-500 focus:outline-none relative"
+              aria-label={drawerOpen ? "Close menu" : "Open menu"}
+              onClick={() => setDrawerOpen(!drawerOpen)}
             >
-              <span className="text-3xl font-bold" style={{ color: headerTextColor }}>&#9776;</span>
+              <div className="w-6 h-5 relative flex flex-col justify-between">
+                <span 
+                  className={`absolute w-full h-[2px] transition-all duration-300 origin-center ${
+                    drawerOpen 
+                      ? 'rotate-45 top-1/2 -translate-y-1/2' 
+                      : 'rotate-0 top-0'
+                  }`}
+                  style={{ backgroundColor: headerTextColor }}
+                />
+                <span 
+                  className={`absolute w-full h-[2px] top-1/2 -translate-y-1/2 transition-all duration-300 ${
+                    drawerOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
+                  style={{ backgroundColor: headerTextColor }}
+                />
+                <span 
+                  className={`absolute w-full h-[2px] transition-all duration-300 origin-center ${
+                    drawerOpen 
+                      ? '-rotate-45 top-1/2 -translate-y-1/2' 
+                      : 'rotate-0 bottom-0'
+                  }`}
+                  style={{ backgroundColor: headerTextColor }}
+                />
+              </div>
             </button>
           </div>
-        </div>
+            </div>
 
-        {/* Slide-down Drawer */}
-        {drawerOpen && (
-          <div className="fixed left-0 top-0 w-full h-[30vh] bg-[#E7DED7] dark:bg-black z-[999] shadow-xl animate-fade-slide-down flex flex-col justify-center items-center transition-all duration-500">
-            <button
-              className="absolute top-4 right-6 text-3xl"
-              style={{ color: headerTextColor, transition: 'opacity 0.3s 0.2s' }}
-              aria-label="Close menu"
+        {/* Right-side Drawer */}
+        <div 
+          className={`fixed right-0 top-[60px] sm:top-[80px] md:top-[100px] w-[20vw] h-[40vh] bg-[#E7DED7] dark:bg-black shadow-xl transition-transform duration-500 transform rounded-bl-[20px] z-40 ${
+            drawerOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
+          <nav className="flex flex-col items-start gap-6 h-full p-8">
+                <Link 
+                  to="/sustainability"
+              className="uppercase tracking-[2.5px] text-xl transition-colors duration-700 relative group outline-none"
+              style={{ 
+                color: headerTextColor, 
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                WebkitTapHighlightColor: 'transparent'
+              }}
+              onClick={() => setDrawerOpen(false)}
+                >
+                  SUSTAINABILITY
+              <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-1/2" />
+                </Link>
+                <Link 
+                  to="/career"
+              className="uppercase tracking-[2.5px] text-xl transition-colors duration-700 relative group outline-none"
+              style={{ 
+                color: headerTextColor, 
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                WebkitTapHighlightColor: 'transparent'
+              }}
               onClick={() => setDrawerOpen(false)}
             >
-              &times;
-            </button>
-            <nav className="flex flex-col items-center justify-center gap-6 h-full">
-              <Link
-                to="/sustainability"
-                className="uppercase tracking-[2.5px] text-xl md:text-2xl transition-colors duration-700"
-                style={{ color: headerTextColor, fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-                onClick={() => setDrawerOpen(false)}
-              >SUSTAINABILITY</Link>
-              <Link
-                to="/career"
-                className="uppercase tracking-[2.5px] text-xl md:text-2xl transition-colors duration-700"
-                style={{ color: headerTextColor, fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-                onClick={() => setDrawerOpen(false)}
-              >CAREERS</Link>
-              <Link
-                to="/contact"
-                className="uppercase tracking-[2.5px] text-xl md:text-2xl transition-colors duration-700"
-                style={{ color: headerTextColor, fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-                onClick={() => setDrawerOpen(false)}
-              >CONTACT US</Link>
-            </nav>
-            <style>{`
-              @keyframes fade-slide-down {
-                0% { opacity: 0; transform: translateY(-40px); }
-                100% { opacity: 1; transform: translateY(0); }
-              }
-              .animate-fade-slide-down {
-                animation: fade-slide-down 0.5s cubic-bezier(0.4,0,0.2,1);
-              }
-            `}</style>
-          </div>
-        )}
+              CAREERS
+              <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-1/2" />
+                </Link>
+                <Link 
+                  to="/contact"
+              className="uppercase tracking-[2.5px] text-xl transition-colors duration-700 relative group outline-none"
+              style={{ 
+                color: headerTextColor, 
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                WebkitTapHighlightColor: 'transparent'
+              }}
+              onClick={() => setDrawerOpen(false)}
+            >
+              CONTACT US
+              <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-current transition-all duration-300 group-hover:w-1/2" />
+                </Link>
+              </nav>
+        </div>
       </nav>
     </header>
   );

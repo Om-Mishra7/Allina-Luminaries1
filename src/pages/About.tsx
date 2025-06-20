@@ -6,6 +6,7 @@ import { MeetOurTeam } from '@/components/MeetOurTeam';
 import { OurValues } from '@/components/OurValues';
 import { VisionMissionSection } from '@/components/VisionMissionSection';
 import { AboutLocationsSlider } from '@/components/AboutLocationsSlider';
+import { CinematicLocationCarousel } from '@/components/CinematicLocationCarousel';
 
 const About = () => {
   return (
@@ -14,10 +15,11 @@ const About = () => {
       <AboutHero />
       
       <VisionMissionSection />
-      <AboutLocationsSlider />
 
       <OurValues />
       <MeetOurTeam />
+      
+      <AboutLocationsSlider />
       
       <Footer />
     </div>

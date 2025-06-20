@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import Projects from './pages/Projects';
 import Career from './pages/Career';
 import Sustainability from './pages/Sustainability';
+import Services from './pages/Services';
 import NotFound from './pages/NotFound';
 
 // Initialize QueryClient
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/career" element={<Career />} />
+              <Route path="/services" element={<Services />} />
               <Route path="/sustainability" element={<Sustainability />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -5,6 +5,7 @@ import { DeviceShowcase } from '@/components/DeviceShowcase';
 import { ServicesGallery } from '@/components/ServicesGallery';
 import { Metrics } from '@/components/Metrics';
 import { ContactCard } from '@/components/ContactCard';
+import { Journey } from '@/components/Journey';
 
 const Index = () => {
   return (

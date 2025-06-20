@@ -16,7 +16,8 @@ const Sustainability = () => {
         <SustainabilityIntro />
         <OurCommitments />
         <GreenProjects />
-        <CinematicLocationCarousel/>
+        <SustainabilitySlider />
+   
       </main>
       <Footer />
     </div>

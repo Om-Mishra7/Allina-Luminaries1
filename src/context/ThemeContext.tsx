@@ -5,12 +5,17 @@ type Theme = 'light' | 'dark';
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  setJourneyInView: (inView: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [baseTheme, setBaseTheme] = useState<Theme>('light');
+  const [isJourneyInView, setIsJourneyInView] = useState(false);
+  
+  // Computed theme: dark when journey is in view, otherwise use base theme
+  const theme = isJourneyInView ? 'dark' : baseTheme;
 
   useEffect(() => {
     document.documentElement.classList.remove('light', 'dark');
@@ -23,8 +28,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     );
   }, [theme]);
 
+  const setTheme = (newTheme: Theme) => {
+    setBaseTheme(newTheme);
+  };
+
+  const setJourneyInView = (inView: boolean) => {
+    setIsJourneyInView(inView);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, setJourneyInView }}>
       {children}
     </ThemeContext.Provider>
   );
