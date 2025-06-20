@@ -44,17 +44,31 @@ export const SustainabilitySlider = () => {
           </p>
         </div>
 
+        {/* Gap between text and slider */}
+        <div className="mb-20"></div>
+
         {/* Slider Section */}
         <div className="relative">
           <div 
-            className="relative h-[600px] rounded-[20px] overflow-hidden"
+            className="relative overflow-hidden"
             style={{
-              background: `linear-gradient(180deg, rgba(74, 144, 226, 0.8) 0%, rgba(144, 224, 239, 0.6) 100%), url(${slides[currentSlide].image})`,
+              width: '1440px',
+              height: '697px',
+              top: '6px',
+              background: `url(${slides[currentSlide].image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}
           >
+            {/* Bottom vignette effect */}
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.7) 100%)'
+              }}
+            />
+
             {/* Left Navigation Arrow */}
             <button
               onClick={prevSlide}
@@ -72,19 +86,22 @@ export const SustainabilitySlider = () => {
             </button>
 
             {/* Overlay Text */}
-            <div className="absolute bottom-16 left-8 max-w-2xl">
-              <h3 
-                className="text-white text-3xl md:text-4xl font-bold leading-tight"
-                style={{ 
-                  fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-                  fontWeight: 700,
-                  fontSize: '42px',
-                  lineHeight: '52px',
-                  letterSpacing: '1px'
-                }}
-              >
-                {slides[currentSlide].text}
-              </h3>
+            <div 
+              className="absolute text-white uppercase z-20"
+              style={{
+                width: '1400px',
+                height: '132px',
+                top: '549px',
+                left: '30.6px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontWeight: 10,
+                fontStyle: 'normal',
+                fontSize: '39px',
+                lineHeight: '66px',
+                letterSpacing: '0.16em'
+              }}
+            >
+              {slides[currentSlide].text}
             </div>
           </div>
         </div>

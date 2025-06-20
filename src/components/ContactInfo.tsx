@@ -6,15 +6,50 @@ export const ContactInfo: React.FC = () => {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
         {/* General Inquiries Section */}
         <div className="mb-16 sm:mb-20">
-          <h2 className="text-[#06153A] text-[24px] sm:text-[28px] font-semibold mb-4">
+          <h2 
+            className="text-[#06153A] mb-4"
+            style={{
+              width: '300px',
+              height: '38px',
+              position: 'relative',
+              top: '-100px',
+ 
+              fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+              fontWeight: 600,
+              fontSize: '32px',
+              lineHeight: '100%',
+              letterSpacing: '0.02em'
+            }}
+          >
             General Inquiries
           </h2>
-          <p className="text-[#06153A] text-base mb-8">
-            Feel free to contact us via phone or email or visit us at one of our office locations. Our team is available to assist you during business hours.
+          <p 
+            className="text-[#06153A] mb-8"
+            style={{
+              width: '1360px',
+              height: '70px',
+              position: 'relative',
+              top: '-100px',
+              
+              fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+              fontWeight: 400,
+              fontSize: '20px',
+              lineHeight: '35px',
+              letterSpacing: '0.01em'
+            }}
+          >
+            For direct inquiries, feel free to contact us via phone or email or visit us at any of our office locations. Our team is available to assist you during business hours.
           </p>
 
         {/* Contact Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12"
+          style={{
+            marginTop: '-100px',
+            left: '35px',
+            position: 'relative'
+          }}
+        >
           {/* Call Us Directly */}
           <div className="text-center">
             <div className="mb-6">
@@ -26,7 +61,7 @@ export const ContactInfo: React.FC = () => {
               <h3 className="text-[#06153A] text-lg sm:text-xl font-semibold mb-4">
                 Call Us Directly
               </h3>
-                <div className="text-[#06153A] text-sm sm:text-base">
+                <div className="text-sm sm:text-base" style={{ color: '#7B7B7B' }}>
                   <p>+91-9643437391</p>
                 </div>
             </div>
@@ -43,9 +78,9 @@ export const ContactInfo: React.FC = () => {
               <h3 className="text-[#06153A] text-lg sm:text-xl font-semibold mb-4">
                   Email Support
                 </h3>
-                <div className="text-[#06153A] text-sm sm:text-base">
+                <div className="text-sm sm:text-base" style={{ color: '#7B7B7B' }}>
                   <p>
-                    <a href="mailto:info@allina.co.in" className="hover:underline">
+                    <a href="mailto:info@allina.co.in" className="hover:underline" style={{ color: '#7B7B7B' }}>
                       info@allina.co.in
                     </a>
                   </p>
@@ -64,7 +99,7 @@ export const ContactInfo: React.FC = () => {
                 <h3 className="text-[#06153A] text-lg sm:text-xl font-semibold mb-4">
                   Visit Our Office
               </h3>
-              <div className="text-[#06153A] text-sm sm:text-base space-y-1">
+              <div className="text-sm sm:text-base space-y-1" style={{ color: '#7B7B7B' }}>
                   <p>Joda Section 36, Faridabad,</p>
                   <p>Haryana - 121003</p>
                 </div>
@@ -78,57 +113,176 @@ export const ContactInfo: React.FC = () => {
           <h2 className="text-[#06153A] text-[24px] sm:text-[28px] font-semibold mb-12 text-center">
             Why Contact ALLINA?
           </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
-            {/* Prompt Responses */}
-            <div className="text-center">
-              <div className="mb-6">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#06153A]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
-                  </svg>
-                </div>
-                <h3 className="text-[#06153A] text-lg sm:text-xl font-semibold mb-4">
-                  Prompt Responses
-                </h3>
-                <p className="text-[#06153A] text-sm sm:text-base">
-                  We're committed to addressing your inquiries quickly and efficiently.
-                </p>
+          
+          {/* Cards Container */}
+          <div style={{
+            width: '1361px',
+            height: '393px',
+            display: 'flex',
+            flexDirection: 'row',
+            position: 'relative',
+            marginBottom: '48px',
+            maxWidth: '100%'
+          }}>
+            {/* Card 1 - Prompt Responses */}
+            <div style={{
+              height: '393px',
+              width: '454px',
+              border: '1px solid #d5d5d5',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              background: '#fff',
+              boxSizing: 'border-box'
+            }}>
+              <svg style={{
+                position: 'absolute',
+                top: '50px',
+                left: '27px',
+                width: '76px',
+                height: '76px'
+              }} viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="20" stroke="#323232" strokeWidth="3"/>
+                <path d="M24 14v10l7 4" stroke="#323232" strokeWidth="3" strokeLinecap="round"/>
+              </svg>
+              
+              <div style={{
+                position: 'absolute',
+                top: '170px',
+                left: '44px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontSize: '25px',
+                fontWeight: 400,
+                color: '#000',
+                letterSpacing: '0.25px',
+                lineHeight: '30px',
+                whiteSpace: 'nowrap'
+              }}>
+                Prompt Responses
               </div>
+              
+              <p style={{
+                position: 'absolute',
+                top: '225px',
+                left: '44px',
+                width: '378px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontSize: '19px',
+                fontWeight: 400,
+                color: '#7b7b7b',
+                letterSpacing: '0.19px',
+                lineHeight: '30px'
+              }}>
+                We're committed to addressing your inquiries quickly and efficiently with dedicated support.
+              </p>
             </div>
 
-            {/* Dedicated Support */}
-            <div className="text-center">
-              <div className="mb-6">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#06153A] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                </div>
-                <h3 className="text-[#06153A] text-lg sm:text-xl font-semibold mb-4">
-                  Dedicated Support
-                </h3>
-                <p className="text-[#06153A] text-sm sm:text-base">
-                  Our team is here to assist you with any questions, comments, or feedback.
-                </p>
+            {/* Card 2 - Dedicated Support (Dark) */}
+            <div style={{
+              height: '393px',
+              width: '454px',
+              border: '1px solid #d5d5d5',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              background: 'rgba(6, 21, 58, 1)',
+              boxSizing: 'border-box',
+              marginLeft: '-1px',
+              marginRight: '-1px'
+            }}>
+              <svg style={{
+                position: 'absolute',
+                top: '41px',
+                left: '27px',
+                width: '76px',
+                height: '76px'
+              }} viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="20" stroke="#fff" strokeWidth="3"/>
+                <path d="M24 14v10l7 4" stroke="#fff" strokeWidth="3" strokeLinecap="round"/>
+              </svg>
+              
+              <div style={{
+                position: 'absolute',
+                top: '164px',
+                left: '40px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontSize: '25px',
+                fontWeight: 400,
+                color: '#fff',
+                letterSpacing: '0.25px',
+                lineHeight: '30px',
+                whiteSpace: 'nowrap'
+              }}>
+                Dedicated Support
               </div>
+              
+              <p style={{
+                position: 'absolute',
+                top: '225px',
+                left: '40px',
+                width: '378px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontSize: '19px',
+                fontWeight: 400,
+                color: '#fff',
+                letterSpacing: '0.19px',
+                lineHeight: '30px'
+              }}>
+                Our team is here to assist you with any questions, comments, or feedback you may have.
+              </p>
             </div>
 
-            {/* Multiple Channels */}
-            <div className="text-center">
-              <div className="mb-6">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#06153A]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
-                  </svg>
-                </div>
-                <h3 className="text-[#06153A] text-lg sm:text-xl font-semibold mb-4">
-                  Multiple Channels
-                </h3>
-                <p className="text-[#06153A] text-sm sm:text-base">
-                  Reach out via phone, email, or visit us - whatever works best for you.
-                </p>
+            {/* Card 3 - Multiple Channels */}
+            <div style={{
+              height: '393px',
+              width: '454px',
+              border: '1px solid #d5d5d5',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              background: '#fff',
+              boxSizing: 'border-box'
+            }}>
+              <svg style={{
+                position: 'absolute',
+                top: '41px',
+                left: '41px',
+                width: '76px',
+                height: '76px'
+              }} viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="20" stroke="#323232" strokeWidth="3"/>
+                <path d="M24 14v10l7 4" stroke="#323232" strokeWidth="3" strokeLinecap="round"/>
+              </svg>
+              
+              <div style={{
+                position: 'absolute',
+                top: '170px',
+                left: '44px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontSize: '25px',
+                fontWeight: 400,
+                color: '#000',
+                letterSpacing: '0.25px',
+                lineHeight: '30px',
+                whiteSpace: 'nowrap'
+              }}>
+                Multiple Channels
               </div>
+              
+              <p style={{
+                position: 'absolute',
+                top: '225px',
+                left: '44px',
+                width: '378px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontSize: '19px',
+                fontWeight: 400,
+                color: '#7b7b7b',
+                letterSpacing: '0.19px',
+                lineHeight: '30px'
+              }}>
+                Reach out via phone, email, or visit us - whatever works best for you and your needs.
+              </p>
             </div>
           </div>
         </div>
