@@ -1,11 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 export const Journey: React.FC = () => {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [animationProgress, setAnimationProgress] = useState(0);
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
-  const [isSectionInView, setIsSectionInView] = useState(false);  useEffect(() => {
+  const [isSectionInView, setIsSectionInView] = useState(false);
+  const { setJourneyInView } = useTheme();
+  
+  // Sync journey visibility with theme context
+  useEffect(() => {
+    setJourneyInView(isSectionInView);
+  }, [isSectionInView, setJourneyInView]);
+
+  useEffect(() => {
     const section = sectionRef.current;
     const img = imgRef.current;
     
