@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 interface Role {
   id: number;
@@ -322,6 +322,34 @@ export const OpenRoles: React.FC = () => {
   const [managementSlide, setManagementSlide] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Filter roles based on search query
+  const filteredEngineeringRoles = useMemo(() => {
+    if (!searchQuery.trim()) return engineeringRoles;
+    
+    return engineeringRoles.filter(role =>
+      role.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.payRange.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const filteredManagementRoles = useMemo(() => {
+    if (!searchQuery.trim()) return managementRoles;
+    
+    return managementRoles.filter(role =>
+      role.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      role.payRange.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  // Check if any results found
+  const hasResults = filteredEngineeringRoles.length > 0 || filteredManagementRoles.length > 0;
+
   return (
     <section className="w-full bg-[#E7DED7] py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1400px] mx-auto">
@@ -385,115 +413,152 @@ export const OpenRoles: React.FC = () => {
           </h1>
         </div>
 
-        {/* Engineering Section */}
-        <div className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Left Side - Title and Image */}
-            <div>
-              <div className="mb-8">
-                <h2 
-                  className="text-4xl font-normal text-gray-900 mb-4"
-                  style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-                >
-                  Engineering
-                </h2>
-                <p 
-                  className="text-gray-600 text-lg"
-                  style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-                >
-                  Open positions in our Engineering team.
-                </p>
-              </div>
-              
-              <div className="relative">
-                <img 
-                  src="/images/image2.png" 
-                  alt="Engineering Team" 
-                  className="object-cover"
-                  style={{
-                    width: '402px',
-                    height: '336px',
-                    borderRadius: '10px'
-                  }}
-                />
-              </div>
-            </div>
+        {/* Search Results Info */}
+        {searchQuery.trim() && (
+          <div className="mb-8 text-center">
+            <p className="text-[#06153A] text-lg" style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}>
+              {hasResults ? (
+                <>
+                  Found {filteredEngineeringRoles.length + filteredManagementRoles.length} result(s) for "{searchQuery}"
+                </>
+              ) : (
+                <>No results found for "{searchQuery}". Try searching for different keywords.</>
+              )}
+            </p>
+          </div>
+        )}
 
-            {/* Right Side - Job Cards */}
-            <div style={{ marginLeft: '-250px' }}>
-              {engineeringRoles.map((role) => (
-                <RoleCard key={role.id} role={role} />
-              ))}
+        {/* Engineering Section */}
+        {(!searchQuery.trim() || filteredEngineeringRoles.length > 0) && (
+          <div className="mb-20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              {/* Left Side - Title and Image */}
+              <div>
+                <div className="mb-8">
+                  <h2 
+                    className="text-4xl font-normal text-gray-900 mb-4"
+                    style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                  >
+                    Engineering
+                  </h2>
+                  <p 
+                    className="text-gray-600 text-lg"
+                    style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                  >
+                    Open positions in our Engineering team.
+                  </p>
+                </div>
+                
+                <div className="relative">
+                  <img 
+                    src="/images/image2.png" 
+                    alt="Engineering Team" 
+                    className="object-cover"
+                    style={{
+                      width: '402px',
+                      height: '336px',
+                      borderRadius: '10px'
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Right Side - Job Cards */}
+              <div style={{ marginLeft: '-250px' }}>
+                {filteredEngineeringRoles.length > 0 ? (
+                  filteredEngineeringRoles.map((role) => (
+                    <RoleCard key={role.id} role={role} />
+                  ))
+                ) : searchQuery.trim() ? (
+                  <div className="text-center p-8">
+                    <p className="text-gray-600 text-lg" style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}>
+                      No engineering roles match your search.
+                    </p>
+                  </div>
+                ) : null}
+              </div>
             </div>
+            
+            {/* Navigation Dots for Engineering */}
+            {filteredEngineeringRoles.length > 0 && <NavigationDots total={5} current={0} />}
+            
+            {/* Decorative Line SVG */}
+            {(!searchQuery.trim() || (filteredEngineeringRoles.length > 0 && filteredManagementRoles.length > 0)) && (
+              <div className="flex justify-center mt-12 mb-8 w-full">
+                <div className="w-full">
+                  <svg width="100%" height="2" viewBox="0 0 1200 2" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+                    <line x1="0" y1="1" x2="1200" y2="1" stroke="#777777" strokeWidth="1"/>
+                  </svg>
+                </div>
+              </div>
+            )}
           </div>
-          
-          {/* Navigation Dots for Engineering */}
-          <NavigationDots total={5} current={0} />
-          
-          {/* Decorative Line SVG */}
-          <div className="flex justify-center mt-12 mb-8 w-full">
-            <div className="w-full">
-              <svg width="100%" height="2" viewBox="0 0 1200 2" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-                <line x1="0" y1="1" x2="1200" y2="1" stroke="#777777" strokeWidth="1"/>
-              </svg>
-            </div>
-          </div>
-        </div>
+        )}
 
         {/* Management Section */}
-        <div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Left Side - Title and Image */}
-            <div>
-              <div className="mb-8">
-                <h2 
-                  className="text-4xl font-normal text-gray-900 mb-4"
-                  style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-                >
-                  Management
-                </h2>
-                <p 
-                  className="text-gray-600 text-lg"
-                  style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
-                >
-                  Open positions in our Management team.
-                </p>
+        {(!searchQuery.trim() || filteredManagementRoles.length > 0) && (
+          <div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              {/* Left Side - Title and Image */}
+              <div>
+                <div className="mb-8">
+                  <h2 
+                    className="text-4xl font-normal text-gray-900 mb-4"
+                    style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                  >
+                    Management
+                  </h2>
+                  <p 
+                    className="text-gray-600 text-lg"
+                    style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                  >
+                    Open positions in our Management team.
+                  </p>
+                </div>
+                
+                <div className="relative">
+                  <img 
+                    src="/images/image3.jpg" 
+                    alt="Management Team" 
+                    className="object-cover"
+                    style={{
+                      width: '402px',
+                      height: '336px',
+                      borderRadius: '10px'
+                    }}
+                  />
+                </div>
               </div>
-              
-              <div className="relative">
-                <img 
-                  src="/images/image3.jpg" 
-                  alt="Management Team" 
-                  className="object-cover"
-                  style={{
-                    width: '402px',
-                    height: '336px',
-                    borderRadius: '10px'
-                  }}
-                />
-              </div>
-            </div>
 
-            {/* Right Side - Job Cards */}
-            <div style={{ marginLeft: '-250px' }}>
-              {managementRoles.map((role) => (
-                <RoleCard key={role.id} role={role} />
-              ))}
+              {/* Right Side - Job Cards */}
+              <div style={{ marginLeft: '-250px' }}>
+                {filteredManagementRoles.length > 0 ? (
+                  filteredManagementRoles.map((role) => (
+                    <RoleCard key={role.id} role={role} />
+                  ))
+                ) : searchQuery.trim() ? (
+                  <div className="text-center p-8">
+                    <p className="text-gray-600 text-lg" style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}>
+                      No management roles match your search.
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            
+            {/* Navigation Dots for Management */}
+            {filteredManagementRoles.length > 0 && <NavigationDots total={5} current={0} />}
+            
+            {/* Decorative Line SVG */}
+            <div className="flex justify-center mt-12 mb-8 w-full">
+              <div className="w-full">
+                <svg width="100%" height="2" viewBox="0 0 1200 2" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+                  <line x1="0" y1="1" x2="1200" y2="1" stroke="#777777" strokeWidth="1"/>
+                </svg>
+              </div>
             </div>
           </div>
-          
-          {/* Navigation Dots for Management */}
-          <NavigationDots total={5} current={0} />
-          
-          {/* Decorative Line SVG */}
-          <div className="flex justify-center mt-12 mb-8 w-full">
-            <div className="w-full">
-              <svg width="100%" height="2" viewBox="0 0 1200 2" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-                <line x1="0" y1="1" x2="1200" y2="1" stroke="#777777" strokeWidth="1"/>
-              </svg>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );

@@ -2,8 +2,8 @@ import React from 'react';
 
 export const ProjectsHero: React.FC = () => {
   return (
-    <section className="w-full bg-[#06153A] relative overflow-hidden">
-      <div className="w-full relative h-[400px] sm:h-[500px] md:h-[550px] lg:h-[600px] max-w-[1440px] mx-auto">
+    <section className="w-full bg-[#06153A] relative overflow-hidden" style={{ height: '86.25vh' }}>
+      <div className="w-full relative h-full max-w-[1440px] mx-auto">
         {/* Main Content */}
         <div className="relative z-10">
           {/* OUR PROJECTS Text */}
@@ -14,12 +14,13 @@ export const ProjectsHero: React.FC = () => {
                  height: 'auto',
                  top: '40px',
                  left: '0px'
+                 
                }}>
             <div className="relative">
               <h1 className="text-white text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] font-normal leading-[1.1] sm:leading-[1.2] md:leading-[1.3] lg:leading-[130px] tracking-[5%]"
                   style={{ 
                     fontFamily: '"Myriad Pro", "Myriad Pro-SemiExtended", Helvetica, Arial, sans-serif',
-                    fontWeight: 400
+                    fontWeight: 200
                   }}>
                 OUR
               </h1>
@@ -29,7 +30,7 @@ export const ProjectsHero: React.FC = () => {
             <h1 className="text-white text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] font-normal leading-[1.1] sm:leading-[1.2] md:leading-[1.3] lg:leading-[130px] tracking-[5%] -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-5"
                 style={{ 
                   fontFamily: '"Myriad Pro", "Myriad Pro-SemiExtended", Helvetica, Arial, sans-serif',
-                  fontWeight: 400
+                  fontWeight: 200
                 }}>
               PROJECTS
             </h1>

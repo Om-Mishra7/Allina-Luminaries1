@@ -61,7 +61,7 @@ export const FutureServices = () => {
       </div>
 
       {/* OUR VALUES Content */}
-      <div className="w-full bg-black mb-12 sm:mb-16 md:mb-[60px] overflow-hidden">
+      <div className="w-full mb-12 sm:mb-16 md:mb-[60px] overflow-hidden" style={{ backgroundColor: '#06153A' }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
           {/* Top Text and Expand/Collapse Button */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-6 sm:pt-8 md:pt-12 mb-8 sm:mb-12 md:mb-16">

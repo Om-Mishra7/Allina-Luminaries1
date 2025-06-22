@@ -24,7 +24,7 @@ export const ContactHero: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-[#E7DED7] py-12 sm:py-16 md:py-20">
+    <section className="w-full py-12 sm:py-16 md:py-20" style={{ backgroundColor: '#E7DED7' }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
         {/* Header Section */}
         <div className="mb-12 sm:mb-16">
@@ -221,7 +221,7 @@ export const ContactHero: React.FC = () => {
 
           {/* Right Side - Form */}
           <div className="order-1 lg:order-2">
-            <div className="bg-white rounded-[20px] p-6 sm:p-8 shadow-lg">
+            <div className="bg-transparent p-6 sm:p-8">
               <div className="mb-6">
                 <p 
                   className="text-[#06153A] text-base mb-6"

@@ -3,9 +3,10 @@ import React from 'react';
 export const Hero: React.FC = () => {
   return (
     <section
+      className="hero-section"
       style={{
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '86.25vh',
         background: '#06153A',
         position: 'relative',
         overflow: 'hidden',
@@ -144,8 +145,25 @@ export const Hero: React.FC = () => {
           </span>
         </div>
       </div>
-      {/* Responsive styles for mobile only */}
+      {/* Responsive styles */}
       <style>{`
+        /* Desktop and larger screens - 70% of viewport minus header height */}
+        @media (min-width: 768px) {
+          .hero-section {
+            height: calc((100vh - 100px) * 0.7) !important;
+            min-height: calc((100vh - 100px) * 0.7) !important;
+          }
+        }
+        
+        /* Tablet screens - 70% of viewport minus smaller header height */}
+        @media (min-width: 640px) and (max-width: 767px) {
+          .hero-section {
+            height: calc((100vh - 80px) * 0.7) !important;
+            min-height: calc((100vh - 80px) * 0.7) !important;
+          }
+        }
+        
+        /* Mobile styles - Keep original behavior */}
         @media (max-width: 700px) {
           .hero-video {
             margin-top: 2vw !important;
@@ -176,7 +194,7 @@ export const Hero: React.FC = () => {
             max-width: 95vw !important;
           }
           section {
-            min-height: 60vh !important;
+            min-height: 42vh !important;
             padding-bottom: 0 !important;
           }
           .hero-allina, .hero-tagline, .hero-paragraph {
@@ -217,7 +235,7 @@ export const Hero: React.FC = () => {
             max-width: 98vw !important;
           }
           section {
-            min-height: 50vh !important;
+            min-height: 35vh !important;
             padding-bottom: 0 !important;
           }
         }

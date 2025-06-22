@@ -3,8 +3,8 @@ import React from 'react';
 const ServicesHero = () => {
   return (
     <div 
-      className="relative w-full h-screen overflow-hidden flex items-center justify-center" 
-      style={{ background: '#05343E' }}
+      className="relative w-full overflow-hidden flex items-center justify-center" 
+      style={{ background: '#05343E', height: '86.25vh' }}
     >
       {/* Text Container */}
       <div className="relative w-full h-full flex flex-col items-center justify-center">
@@ -14,12 +14,12 @@ const ServicesHero = () => {
             width: '703px',
             height: '161px',
             position: 'absolute',
-            top: '46px',
+            top: '5%',
             fontFamily: 'Myriad Pro, sans-serif',
-            fontSize: '120px',
+            fontSize: '90px',
             fontWeight: '400',
             lineHeight: '161px',
-            letterSpacing: '5%',
+            letterSpacing: '0.1em',
             textAlign: 'center',
             color: 'white',
             left: '50%',
@@ -36,11 +36,11 @@ const ServicesHero = () => {
             width: '1187px',
             height: '466px',
             position: 'absolute',
-            top: '207px',
+            top: '23%',
             left: '50%',
             transform: 'translateX(-50%)',
             fontFamily: 'Anton, sans-serif',
-            fontSize: '500px',
+            fontSize: '450px',
             fontWeight: '400',
             lineHeight: '500px',
             letterSpacing: '5%',

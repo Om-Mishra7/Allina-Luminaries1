@@ -14,7 +14,7 @@ const About = () => {
       <Header />
       <AboutHero />
       
-      <VisionMissionSection />
+    
 
       <OurValues />
       <MeetOurTeam />

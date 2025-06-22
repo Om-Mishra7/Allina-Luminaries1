@@ -171,10 +171,10 @@
 <path d="M803.393 333.993H735.086V331.948H803.393V333.993Z" fill="white"/>
 <path d="M803.393 361.542H735.086V359.497H803.393V361.542Z" fill="white"/>
 <path d="M807.732 193.312H730.744V187.717H807.732V193.312Z" fill="white"/>
-<mask id="mask0_635_2861" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="743" y="202" width="8" height="17">
+<mask id="mask0_1264_19951" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="743" y="202" width="8" height="17">
 <path d="M750.007 218.192H743.48V202.015H750.007V218.192ZM743.48 202.015V215.516H746.744V202.015H743.48Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_635_2861)">
+<g mask="url(#mask0_1264_19951)">
 <path d="M743.48 218.192H750.007V202.015H743.48V218.192Z" fill="white"/>
 </g>
 <path d="M758.082 218.192H764.61V202.015H758.082V218.192Z" fill="white"/>

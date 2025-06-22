@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Image from 'next/image';
 
 const Solutions = () => {
   const solutions = [
@@ -118,57 +117,97 @@ const Solutions = () => {
 
   return (
     <div className="w-full bg-[#E7DED7] py-20">
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-4 flex flex-col items-center">
         <h2 className="text-2xl font-medium text-center mb-12 uppercase tracking-wider">
           STREETLIGHTING SOLUTIONS
         </h2>
         
-        <Accordion type="single" collapsible className="w-full space-y-6">
-          {solutions.map((solution) => (
-            <AccordionItem
-              key={solution.id}
-              value={solution.id}
-              className="border-b border-[#05343E] bg-transparent"
-            >
-              <AccordionTrigger className="flex items-center py-6 px-4 hover:no-underline">
-                <div className="flex items-center gap-4">
-                  <span className="text-[#05343E] text-xl font-medium">
-                    {solution.id}
-                  </span>
-                  <span className="text-[#05343E] text-xl font-medium">
-                    {solution.title}
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pt-4 pb-8">
-                <p className="text-[#05343E] mb-8 text-lg">
-                  {solution.content.description}
-                </p>
-                {solution.content.features.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                    {solution.content.features.map((feature, index) => (
-                      <div key={index} className="space-y-4">
-                        <h3 className="text-[#05343E] font-medium text-lg">
-                          {feature.title}
-                        </h3>
-                        <p className="text-[#05343E] text-base">
-                          {feature.description}
-                        </p>
-                      </div>
-                    ))}
+        <div style={{ width: '1360px', maxWidth: '100%' }}>
+          <Accordion type="single" collapsible className="w-full">
+            {solutions.map((solution, index) => (
+              <AccordionItem
+                key={solution.id}
+                value={solution.id}
+                className="bg-transparent"
+                style={{ marginBottom: index < solutions.length - 1 ? '24px' : '0' }}
+              >
+                <AccordionTrigger 
+                  className="flex items-center hover:no-underline py-6 px-0"
+                  style={{
+                    width: '100%',
+                    height: '47px',
+                    padding: '0'
+                  }}
+                >
+                  <div className="flex items-center gap-4 w-full">
+                    <span 
+                      style={{
+                        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                        fontWeight: 600,
+                        fontSize: '39px',
+                        lineHeight: '100%',
+                        letterSpacing: '0.2em',
+                        color: '#06153A'
+                      }}
+                    >
+                      {solution.id}
+                    </span>
+                    <span 
+                      style={{
+                        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                        fontWeight: 400,
+                        fontSize: '30px',
+                        lineHeight: '100%',
+                        letterSpacing: '0.16em',
+                        color: '#06153A'
+                      }}
+                    >
+                      {solution.title}
+                    </span>
                   </div>
-                )}
-                <div className="w-full h-[300px] relative mt-8 overflow-hidden rounded-lg">
-                  <img
-                    src="/images/image2.png"
-                    alt={`${solution.title} illustration`}
-                    className="w-full h-full object-cover"
+                </AccordionTrigger>
+                
+                {/* Decorative line with gaps */}
+                <div style={{ margin: '25px 0' }}>
+                  <div 
+                    style={{
+                      width: '100%',
+                      height: '1px',
+                      backgroundColor: '#06153A'
+                    }}
                   />
                 </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+
+                <AccordionContent className="px-0 pt-4 pb-8">
+                  <p className="text-[#06153A] mb-8 text-lg">
+                    {solution.content.description}
+                  </p>
+                  {solution.content.features.length > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                      {solution.content.features.map((feature, index) => (
+                        <div key={index} className="space-y-4">
+                          <h3 className="text-[#06153A] font-medium text-lg">
+                            {feature.title}
+                          </h3>
+                          <p className="text-[#06153A] text-base">
+                            {feature.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="w-full h-[300px] relative mt-8 overflow-hidden rounded-lg">
+                    <img
+                      src="/images/image2.png"
+                      alt={`${solution.title} illustration`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </div>
     </div>
   );
