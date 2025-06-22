@@ -320,15 +320,66 @@ const NavigationDots: React.FC<{ total: number; current: number }> = ({ total, c
 export const OpenRoles: React.FC = () => {
   const [engineeringSlide, setEngineeringSlide] = useState(0);
   const [managementSlide, setManagementSlide] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <section className="w-full bg-[#E7DED7] py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1400px] mx-auto">
+        {/* Search Bar */}
+        <div className="mb-8" style={{ 
+          position: 'relative',
+          width: '1400px',
+          height: '94px',
+          top: '0px',
+        }}>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search for roles ..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full h-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{
+                width: '1410px',
+                height: '80px',
+                borderRadius: '16px',
+                border: '2px solid #06153A',
+                backgroundColor: 'transparent',
+                paddingTop: '15px',
+                paddingRight: '35px',
+                paddingBottom: '15px',
+                paddingLeft: '35px',
+                gap: '10px',
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontSize: '16px',
+                color: '#666666'
+              }}
+            />
+            <div className="absolute" style={{
+              right: '35px',
+              top: '50%',
+              transform: 'translateY(-50%)'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06153A" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-16">
           <h1 
-            className="text-gray-500 text-sm font-medium tracking-wider uppercase mb-8"
-            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+            className="text-[#06153A] font-medium tracking-wider uppercase mb-8"
+            style={{ 
+              fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+              width: '150px',
+              height: '24px',
+              fontSize: '14px',
+              margin: '0 auto',
+              letterSpacing: '0.2em'
+            }}
           >
             OPEN ROLES
           </h1>
@@ -341,7 +392,7 @@ export const OpenRoles: React.FC = () => {
             <div>
               <div className="mb-8">
                 <h2 
-                  className="text-4xl font-bold text-gray-900 mb-4"
+                  className="text-4xl font-normal text-gray-900 mb-4"
                   style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
                 >
                   Engineering
@@ -378,6 +429,15 @@ export const OpenRoles: React.FC = () => {
           
           {/* Navigation Dots for Engineering */}
           <NavigationDots total={5} current={0} />
+          
+          {/* Decorative Line SVG */}
+          <div className="flex justify-center mt-12 mb-8 w-full">
+            <div className="w-full">
+              <svg width="100%" height="2" viewBox="0 0 1200 2" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+                <line x1="0" y1="1" x2="1200" y2="1" stroke="#777777" strokeWidth="1"/>
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* Management Section */}
@@ -387,7 +447,7 @@ export const OpenRoles: React.FC = () => {
             <div>
               <div className="mb-8">
                 <h2 
-                  className="text-4xl font-bold text-gray-900 mb-4"
+                  className="text-4xl font-normal text-gray-900 mb-4"
                   style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
                 >
                   Management
@@ -424,6 +484,15 @@ export const OpenRoles: React.FC = () => {
           
           {/* Navigation Dots for Management */}
           <NavigationDots total={5} current={0} />
+          
+          {/* Decorative Line SVG */}
+          <div className="flex justify-center mt-12 mb-8 w-full">
+            <div className="w-full">
+              <svg width="100%" height="2" viewBox="0 0 1200 2" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+                <line x1="0" y1="1" x2="1200" y2="1" stroke="#777777" strokeWidth="1"/>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </section>

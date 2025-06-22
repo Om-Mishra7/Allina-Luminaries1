@@ -6,6 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { Routes, Route } from 'react-router-dom';
+import { ScrollToTop } from './components/ScrollToTop';
 import Index from './pages/Index';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -29,6 +30,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <TooltipProvider>
           <div className="min-h-screen bg-[#E7DED7] dark:bg-black transition-colors duration-700">
             <Routes>

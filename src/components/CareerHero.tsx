@@ -29,12 +29,9 @@ export const CareerHero: React.FC = () => {
 
       {/* Desktop Layout - exact specifications */}
       <div className="hidden xl:block relative z-10 w-full h-screen">
-        <div className="absolute"
+        <div className="absolute w-full flex justify-center"
              style={{
-               width: '1271px',
-               height: '161px',
-               top: '222px',
-               left: '85px'
+               top: '222px'
              }}>
           <h1 className="text-[#DDB9A2] text-[100px] leading-[161px] tracking-[5%] text-center font-normal whitespace-nowrap"
               style={{ fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif' }}>
@@ -42,28 +39,56 @@ export const CareerHero: React.FC = () => {
           </h1>
         </div>
         
-        {/* Description and buttons for desktop */}
-        <div className="absolute bottom-40 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-8">
-          <div className="text-center">
-            <div className="max-w-[600px] mx-auto mb-16">
-              <p className="text-white/80 text-xl leading-relaxed">
-                Our Philosophy is simple - hire a team of diverse, passionate people and foster a 
-                culture that empowers you to do your best work.
-              </p>
-            </div>
+        {/* Description */}
+        <div className="absolute"
+             style={{
+               width: '743px',
+               height: '60px',
+               top: '404px',
+               left: '348px'
+             }}>
+          <p className="text-white"
+             style={{
+               fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+               fontWeight: 400,
+               fontSize: '20px',
+               lineHeight: '30px',
+               letterSpacing: '0.01em',
+               textAlign: 'center'
+             }}>
+            Our Philosophy is simple - hire a team of diverse, passionate people and foster a 
+            culture that empowers you to do your best work.
+          </p>
+        </div>
 
-            <div className="flex items-center justify-center gap-6">
-              <a href="#past-roles" className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black font-medium px-10 py-4 rounded-full text-base transition-all duration-300 min-w-[180px]"
-                 style={{ fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif' }}>
-                Our Past Roles
-              </a>
-              
-              <a href="#open-roles" className="bg-transparent hover:bg-white/10 text-white font-medium px-10 py-4 rounded-full border-2 border-white/30 hover:border-white/50 text-base transition-all duration-300 min-w-[180px]"
-                 style={{ fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif' }}>
-                See Open Roles
-              </a>
-            </div>
-          </div>
+        {/* Button */}
+        <div className="absolute"
+             style={{
+               top: '550px',
+               left: '607.5px',
+               alignItems: 'center'
+             }}>
+                     <a href="#open-roles" 
+              className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black transition-all duration-300 inline-flex items-center justify-center"
+              style={{
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontWeight: 500,
+                fontSize: '18px',
+                lineHeight: '30px',
+                letterSpacing: '0.01em',
+                textAlign: 'center',
+                width: '225px',
+                height: '60px',
+                borderRadius: '30px',
+                border: '2px solid transparent',
+                paddingTop: '15px',
+                paddingRight: '35px',
+                paddingBottom: '15px',
+                paddingLeft: '35px',
+                gap: '10px'
+              }}>
+            Open Roles
+          </a>
         </div>
       </div>
 
@@ -104,15 +129,10 @@ export const CareerHero: React.FC = () => {
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-              <a href="#past-roles" className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black font-medium px-8 py-3 sm:px-10 sm:py-4 rounded-full text-sm sm:text-base transition-all duration-300 min-w-[160px] sm:min-w-[180px]"
+            <div className="flex items-center justify-center">
+              <a href="#open-roles" className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black font-medium px-8 py-3 sm:px-10 sm:py-4 rounded-full text-sm sm:text-base transition-all duration-300 min-w-[160px] sm:min-w-[180px]"
                  style={{ fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif' }}>
-                Our Past Roles
-              </a>
-              
-              <a href="#open-roles" className="bg-transparent hover:bg-white/10 text-white font-medium px-8 py-3 sm:px-10 sm:py-4 rounded-full border-2 border-white/30 hover:border-white/50 text-sm sm:text-base transition-all duration-300 min-w-[160px] sm:min-w-[180px]"
-                 style={{ fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif' }}>
-                See Open Roles
+                Open Roles
               </a>
             </div>
           </div>
