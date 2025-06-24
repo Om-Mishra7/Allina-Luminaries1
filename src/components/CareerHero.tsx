@@ -1,8 +1,18 @@
 import React from 'react';
 
 export const CareerHero: React.FC = () => {
+  const handleScrollToOpenRoles = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById('open-roles');
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
   return (
-    <section className="w-full bg-[#06153A] relative overflow-hidden" style={{ height: '86.25vh' }}>
+    <section className="w-full bg-[#06153A] relative overflow-hidden" style={{ height: 'calc(100vh - 70px)' }}>
       {/* Background Logo - Centered */}
       <div className="absolute pointer-events-none z-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
            style={{
@@ -74,13 +84,14 @@ export const CareerHero: React.FC = () => {
                transform: 'translateX(-50%)'
              }}>
           <a href="#open-roles" 
+             onClick={handleScrollToOpenRoles}
              className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black transition-all duration-300 inline-flex items-center justify-center"
              style={{
                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
                fontWeight: 500,
-               fontSize: '18px',
+               fontSize: '14px',
                lineHeight: '30px',
-               letterSpacing: '0.01em',
+               letterSpacing: '0.1em',
                textAlign: 'center',
                width: '225px',
                height: '60px',
@@ -90,9 +101,10 @@ export const CareerHero: React.FC = () => {
                paddingRight: '35px',
                paddingBottom: '15px',
                paddingLeft: '35px',
-               gap: '10px'
+               gap: '10px',
+               textTransform: 'uppercase'
              }}>
-            Open Roles
+            OPEN ROLES
           </a>
         </div>
       </div>
@@ -117,9 +129,17 @@ export const CareerHero: React.FC = () => {
 
             {/* Button */}
             <div className="flex items-center justify-center">
-              <a href="#open-roles" className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black font-medium px-8 py-3 sm:px-10 sm:py-4 rounded-full text-sm sm:text-base transition-all duration-300 min-w-[160px] sm:min-w-[180px]"
-                 style={{ fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif' }}>
-                Open Roles
+              <a href="#open-roles" 
+                 onClick={handleScrollToOpenRoles}
+                 className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black font-medium px-8 py-3 sm:px-10 sm:py-4 rounded-full text-sm sm:text-base transition-all duration-300 min-w-[160px] sm:min-w-[180px]"
+                 style={{ 
+                   fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif',
+                   fontSize: '14px',
+                   fontWeight: 600,
+                   letterSpacing: '0.1em',
+                   textTransform: 'uppercase'
+                 }}>
+                OPEN ROLES
               </a>
             </div>
           </div>
