@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
-    <footer className="bg-black text-white py-12">
+    <footer className="bg-black text-white pt-10 pb-6">
       <div className="max-w-[1440px] mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Logo Section */}
@@ -157,7 +157,7 @@ export const Footer = () => {
         </div>
 
         {/* Horizontal Line and Copyright */}
-        <div className="mt-12 pt-8 border-t border-white">
+        <div style={{ marginTop: '-110px' }} className="pt-6 border-t border-white">
           <div className="text-center">
             <p className="text-white text-sm">
               ©2025 | All Rights reserved | Allina Luminaries Pvt. Ltd.

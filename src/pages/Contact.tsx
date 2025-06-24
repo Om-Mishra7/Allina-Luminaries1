@@ -6,10 +6,12 @@ import { ContactInfo } from '@/components/ContactInfo';
 
 const Contact = () => {
   return (
-    <div className="min-h-screen w-full bg-[#E7DED7] overflow-x-hidden">
+    <div className="min-h-screen w-full bg-[#E7DED7] flex flex-col justify-start relative overflow-hidden">
       <Header />
-      <ContactHero />
-      <ContactInfo />
+      <main className="flex-1 w-full flex flex-col items-center justify-center">
+        <ContactHero />
+        <ContactInfo />
+      </main>
       <Footer />
     </div>
   );

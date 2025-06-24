@@ -1,7 +1,55 @@
-import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 export const CompletedProjects = () => {
+  const [selectedState, setSelectedState] = useState<'rajasthan' | 'haryana'>('rajasthan');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Sample project images for carousel in Card Container
+  const projectImages = [
+    {
+      src: "/images/image1.jpg",
+      alt: "Completed street lighting project 1",
+      title: "Solar Street Lighting Project"
+    },
+    {
+      src: "/images/image2.png",
+      alt: "Completed street lighting project 2", 
+      title: "Smart City Infrastructure"
+    },
+    {
+      src: "/images/image3.jpg",
+      alt: "Completed street lighting project 3",
+      title: "LED Retrofit Implementation"
+    },
+    {
+      src: "/images/image5.jpg",
+      alt: "Completed street lighting project 4",
+      title: "Energy Efficient Solutions"
+    }
+  ];
+
+  // Sample project card data (separate from image carousel)
+  const currentCard = {
+    title: "Solar Street Lights",
+    location: "Jaipur, India",
+    status: "Status: Completed",
+    description: "Renewable energy lighting solution",
+    startDate: "Start Date: 01 Mar, 2024",
+    endDate: "End Date: 01 Sep, 2024",
+    progress: 100
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length);
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % projectImages.length);
+  };
+
+  const currentImage = projectImages[currentImageIndex];
+
   return (
     <div style={{ position: 'relative' }}>
       {/* Middle Horizontal Line */}
@@ -52,39 +100,34 @@ export const CompletedProjects = () => {
         </p>
       </div>
 
-      {/* Background Image with Dots */}
+      {/* Map Display Area */}
       <div style={{
         position: 'absolute',
         width: '391px',
         height: '356px',
         top: '1035px',
         left: '752px',
-        backgroundImage: 'url(https://c.animaapp.com/C63Xsv19/img/group@2x.png)',
-        backgroundSize: '100% 100%'
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        borderRadius: '10px',
+        border: '1px solid #323232'
       }}>
-        <div style={{
-          position: 'absolute',
-          width: '12px',
-          height: '12px',
-          top: '72px',
-          left: '236px',
-          borderRadius: '6px',
-          backgroundColor: '#ffffff',
-          boxShadow: '0px 0px 11px 3px rgba(255,255,255,0.71)'
-        }} />
-        <div style={{
-          position: 'absolute',
-          width: '12px',
-          height: '12px',
-          top: '184px',
-          left: '61px',
-          borderRadius: '6px',
-          backgroundColor: '#ffffff',
-          boxShadow: '0px 0px 11px 3px rgba(255,255,255,0.71)'
-        }} />
+        <img 
+          src={selectedState === 'rajasthan' ? '/images/Rajasthan.svg' : '/images/Haryana.svg'}
+          alt={selectedState === 'rajasthan' ? 'Rajasthan Map' : 'Haryana Map'}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            filter: 'brightness(1.2)'
+          }}
+        />
       </div>
 
-      {/* Card Container */}
+      {/* Card Container - Image Carousel */}
       <div style={{
         position: 'absolute',
         width: '644px',
@@ -93,8 +136,69 @@ export const CompletedProjects = () => {
         left: '435px',
         backgroundColor: '#111111',
         borderRadius: '21px',
-        border: '1px solid #323232'
-      }} />
+        border: '1px solid #323232',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img 
+            src={currentImage.src}
+            alt={currentImage.alt}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              borderRadius: '21px'
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            bottom: '20px',
+            left: '20px',
+            right: '20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            padding: '10px 15px',
+            borderRadius: '8px'
+          }}>
+            <div style={{
+              color: '#ffffff',
+              fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
+              fontSize: '18px',
+              fontWeight: '400',
+              marginBottom: '5px'
+            }}>
+              {currentImage.title}
+            </div>
+            <div style={{
+              display: 'flex',
+              gap: '6px',
+              justifyContent: 'center'
+            }}>
+              {projectImages.map((_, index) => (
+                <div
+                  key={index}
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: index === currentImageIndex ? '#ddb9a2' : '#666666',
+                    transition: 'background-color 0.3s ease'
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Filter tabs and project card section */}
       <div style={{
@@ -112,11 +216,14 @@ export const CompletedProjects = () => {
           alignItems: 'center',
           gap: '18px'
         }}>
-          <div style={{ position: 'relative', width: '138px', height: '51px' }}>
+          <button 
+            style={{ position: 'relative', width: '138px', height: '51px', cursor: 'pointer', border: 'none', background: 'none' }}
+            onClick={() => setSelectedState('rajasthan')}
+          >
             <div style={{
               width: '136px',
               height: '51px',
-              backgroundColor: '#ffffff',
+              backgroundColor: selectedState === 'rajasthan' ? '#ffffff' : 'transparent',
               borderRadius: '29px',
               border: '1px solid #323232'
             }} />
@@ -126,7 +233,7 @@ export const CompletedProjects = () => {
               left: '30px',
               fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
               fontWeight: '400',
-              color: '#000000',
+              color: selectedState === 'rajasthan' ? '#000000' : '#ffffff',
               fontSize: '15px',
               textAlign: 'center',
               letterSpacing: '1.05px',
@@ -135,11 +242,15 @@ export const CompletedProjects = () => {
             }}>
               Rajasthan
             </div>
-          </div>
-          <div style={{ position: 'relative', width: '138px', height: '51px' }}>
+          </button>
+          <button 
+            style={{ position: 'relative', width: '138px', height: '51px', cursor: 'pointer', border: 'none', background: 'none' }}
+            onClick={() => setSelectedState('haryana')}
+          >
             <div style={{
               width: '136px',
               height: '51px',
+              backgroundColor: selectedState === 'haryana' ? '#ffffff' : 'transparent',
               borderRadius: '29px',
               border: '1px solid #323232'
             }} />
@@ -149,7 +260,7 @@ export const CompletedProjects = () => {
               left: '36px',
               fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
               fontWeight: '400',
-              color: '#ffffff',
+              color: selectedState === 'haryana' ? '#000000' : '#ffffff',
               fontSize: '15px',
               textAlign: 'center',
               letterSpacing: '1.05px',
@@ -158,7 +269,7 @@ export const CompletedProjects = () => {
             }}>
               Haryana
             </div>
-          </div>
+          </button>
         </div>
         
         {/* Project Card */}
@@ -186,7 +297,7 @@ export const CompletedProjects = () => {
               fontSize: '12.9px',
               textAlign: 'right'
             }}>
-              Faridabad, India
+              {currentCard.location}
             </div>
             
             <img 
@@ -211,7 +322,7 @@ export const CompletedProjects = () => {
               lineHeight: '22px',
               whiteSpace: 'nowrap'
             }}>
-              CCMS Panels
+              {currentCard.title}
             </div>
             
             <div style={{
@@ -225,7 +336,7 @@ export const CompletedProjects = () => {
               lineHeight: '22px',
               whiteSpace: 'nowrap'
             }}>
-              Status: Ongoing
+              {currentCard.status}
             </div>
             
             <div style={{
@@ -239,7 +350,7 @@ export const CompletedProjects = () => {
               lineHeight: '22px',
               whiteSpace: 'nowrap'
             }}>
-              Small Description
+              {currentCard.description}
             </div>
             
             {/* Progress Bar */}
@@ -253,7 +364,7 @@ export const CompletedProjects = () => {
               borderRadius: '3px'
             }}>
               <div style={{
-                width: '207px',
+                width: `${(currentCard.progress / 100) * 314}px`,
                 height: '3px',
                 backgroundColor: '#ddb9a2',
                 borderRadius: '3px',
@@ -273,7 +384,7 @@ export const CompletedProjects = () => {
               textAlign: 'right',
               lineHeight: '22px'
             }}>
-              End Date: 17 Nov, 2025
+              {currentCard.endDate}
             </div>
             
             <div style={{
@@ -287,7 +398,7 @@ export const CompletedProjects = () => {
               lineHeight: '22px',
               whiteSpace: 'nowrap'
             }}>
-              Start Date: 17 Nov, 2024
+              {currentCard.startDate}
             </div>
           </div>
         </div>
@@ -304,39 +415,47 @@ export const CompletedProjects = () => {
       }} />
 
       {/* Navigation Buttons */}
-      <div style={{
-        position: 'absolute',
-        width: '55px',
-        height: '55px',
-        top: '1666px',
-        left: '1098px',
-        backgroundColor: '#000000',
-        borderRadius: '37px',
-        border: '1px solid #323232',
-        boxShadow: '0px 0px 11px rgba(255,255,255,0.26)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
+      <button 
+        onClick={handleNextImage}
+        style={{
+          position: 'absolute',
+          width: '55px',
+          height: '55px',
+          top: '1666px',
+          left: '1098px',
+          backgroundColor: '#000000',
+          borderRadius: '37px',
+          border: '1px solid #323232',
+          boxShadow: '0px 0px 11px rgba(255,255,255,0.26)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer'
+        }}
+      >
         <ChevronRight style={{ width: '34px', height: '34px', color: '#e3e3e3' }} />
-      </div>
+      </button>
       
-      <div style={{
-        position: 'absolute',
-        width: '55px',
-        height: '55px',
-        top: '1666px',
-        left: '361px',
-        backgroundColor: '#000000',
-        borderRadius: '37px',
-        border: '1px solid #323232',
-        boxShadow: '0px 0px 11px rgba(255,255,255,0.26)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <ChevronRight style={{ width: '34px', height: '34px', color: '#e3e3e3' }} />
-      </div>
+      <button 
+        onClick={handlePrevImage}
+        style={{
+          position: 'absolute',
+          width: '55px',
+          height: '55px',
+          top: '1666px',
+          left: '361px',
+          backgroundColor: '#000000',
+          borderRadius: '37px',
+          border: '1px solid #323232',
+          boxShadow: '0px 0px 11px rgba(255,255,255,0.26)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer'
+        }}
+      >
+        <ChevronLeft style={{ width: '34px', height: '34px', color: '#e3e3e3' }} />
+      </button>
     </div>
   );
 };

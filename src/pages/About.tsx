@@ -10,18 +10,15 @@ import { CinematicLocationCarousel } from '@/components/CinematicLocationCarouse
 
 const About = () => {
   return (
-    <div className="min-h-screen w-full bg-[#E7DED7] overflow-x-hidden">
+    <div className='min-h-screen w-full bg-[#E7DED7] flex flex-col justify-start relative overflow-hidden'>
       <Header />
-      <AboutHero />
-      
-    
-
-      <OurValues />
-      <MeetOurTeam />
-      
-      <AboutLocationsSlider />
-      
-      <Footer />
+      <main className="flex-1 w-full flex flex-col items-center justify-center">
+        <AboutHero />
+        <OurValues />
+        <MeetOurTeam />
+        <AboutLocationsSlider />
+      </main>
+      <Footer/>
     </div>
   );
 };

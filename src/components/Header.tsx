@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import allinaLogoLight from '/images/AllinaHeader.svg';
-import allinaLogoDark from '/images/Allina.svg';
+import allinaLogoDark from '/images/allina-logo-dark.png';
 
 // Adjustable logo vertical offset (in px)
 const LOGO_VERTICAL_OFFSET = 0; // Change this value to adjust logo distance from top
@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
   // Responsive: hide nav links on small screens, always show ☰
   return ( 
     <header className="relative w-full h-[60px] sm:h-[80px] md:h-[100px] z-50">
-      <nav className="fixed w-full h-[60px] sm:h-[80px] md:h-[100px] top-0 left-0 bg-[#E7DED7] dark:bg-black transition-colors duration-700 z-50 shadow-[0_6px_32px_0_rgba(0,0,0,0.18)]">
+      <nav className="fixed w-full h-[60px] sm:h-[80px] md:h-[100px] top-0 left-0 bg-white dark:bg-black transition-colors duration-700 z-50 shadow-[0_6px_32px_0_rgba(0,0,0,0.18)]">
         <div className="max-w-[1440px] mx-auto relative h-full px-4 sm:px-6 md:px-8 flex items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center h-full">
@@ -93,7 +93,7 @@ export const Header: React.FC = () => {
 
         {/* Right-side Drawer */}
         <div 
-          className={`fixed right-0 top-[60px] sm:top-[80px] md:top-[100px] w-[20vw] h-[40vh] bg-[#E7DED7] dark:bg-black shadow-xl transition-transform duration-500 transform rounded-bl-[20px] z-40 ${
+          className={`fixed right-0 top-[60px] sm:top-[80px] md:top-[100px] w-[20vw] h-[40vh] bg-white dark:bg-black shadow-xl transition-transform duration-500 transform rounded-bl-[20px] z-40 ${
             drawerOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           style={{ WebkitTapHighlightColor: 'transparent' }}

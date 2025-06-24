@@ -1,10 +1,25 @@
-import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronRight, ChevronDown } from 'lucide-react';
 import { ProjectStats } from './ProjectStats';
 import { OngoingProjects } from './OngoingProjects';
 import { CompletedProjects } from './CompletedProjects';
 
 export const ProjectsContent = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('Streetlights');
+
+  const categories = [
+    'Streetlights',
+    'Solar Projects',
+    'Smart City Solutions',
+    'Infrastructure Development'
+  ];
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className="relative w-[1440px] h-[2572px] bg-black mx-auto">
       <div
@@ -44,19 +59,48 @@ export const ProjectsContent = () => {
         {/* Project Stats */}
         <ProjectStats />
       </div>
-      {/* Streetlights button */}
-      <div className="absolute flex w-[207px] h-[51px] items-center justify-center gap-[46px] p-[10px] left-[1098px] rounded-[1px] border border-[#323232]" style={{ top: 150 }}>
-        <div 
-          className="text-white text-[15px] text-center whitespace-nowrap"
-          style={{ 
-            fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
-            letterSpacing: '1.05px',
-            lineHeight: '21.7px'
-          }}
+      {/* Dropdown button */}
+      <div className="absolute left-[1098px]" style={{ top: 150 }}>
+        <button 
+          className="flex w-[207px] h-[51px] items-center justify-center gap-[46px] p-[10px] rounded-[1px] border border-[#323232] bg-transparent hover:bg-[#323232] transition-colors cursor-pointer"
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
-          Streetlights
-        </div>
-        <ChevronRight className="w-[23px] h-[23px] text-[#e3e3e3]" />
+          <div 
+            className="text-white text-[15px] text-center whitespace-nowrap"
+            style={{ 
+              fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
+              letterSpacing: '1.05px',
+              lineHeight: '21.7px'
+            }}
+          >
+            {selectedCategory}
+          </div>
+          {isDropdownOpen ? (
+            <ChevronDown className="w-[23px] h-[23px] text-[#e3e3e3]" />
+          ) : (
+            <ChevronRight className="w-[23px] h-[23px] text-[#e3e3e3]" />
+          )}
+        </button>
+        
+        {/* Dropdown menu */}
+        {isDropdownOpen && (
+          <div className="absolute top-[55px] left-0 w-[207px] bg-[#1a1a1a] border border-[#323232] rounded-[1px] shadow-lg z-10">
+            {categories.map((category, index) => (
+              <button
+                key={category}
+                className="w-full px-4 py-3 text-left text-white text-[15px] hover:bg-[#323232] transition-colors first:rounded-t-[1px] last:rounded-b-[1px]"
+                style={{ 
+                  fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
+                  letterSpacing: '1.05px',
+                  lineHeight: '21.7px'
+                }}
+                onClick={() => handleCategorySelect(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

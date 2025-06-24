@@ -45,10 +45,11 @@ export const FutureServices = () => {
     setOpenItems(items);
   };
 
-  // Calculate dynamic image alignment based on expanded content
+  // Calculate dynamic image transform based on expanded content
   const expandedCount = openItems.length;
-  // If any item is expanded, center the image vertically, else align to top
-  const imageAlign = expandedCount > 0 ? 'center' : 'flex-start';
+  // Calculate translateY to center image relative to accordion content
+  const baseOffset = expandedCount > 0 ? (expandedCount * 50) + 80 : 0;
+  const imageTransform = `translateY(${baseOffset}px)`;
 
   return (
     <>
@@ -91,18 +92,13 @@ export const FutureServices = () => {
 
           <div className="flex flex-col md:flex-row gap-8 lg:gap-12 pb-12 lg:pb-16">
             {/* Left side - Image */}
-            <div
-              className="flex-shrink-0 w-[350px] lg:w-[500px] xl:w-[500px] mx-auto md:mx-0 flex justify-center items-center"
-              style={{
-                alignItems: 'center', // Always center vertically
-                transition: 'align-items 0.5s cubic-bezier(0.4,0,0.2,1)'
-              }}
-            >
+            <div className="flex-shrink-0 w-[350px] lg:w-[500px] xl:w-[500px] mx-auto md:mx-0 flex justify-center">
               <div 
                 className="w-[350px] h-[450px] lg:w-[500px] lg:h-[650px] xl:w-[500px] xl:h-[650px] bg-cover bg-center rounded-lg"
                 style={{
                   backgroundImage: 'url(https://c.animaapp.com/zheglGTa/img/unsplash-xu5mqq0chck.png)',
-                  transition: 'margin 0.5s cubic-bezier(0.4,0,0.2,1)'
+                  transform: imageTransform,
+                  transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               />
             </div>

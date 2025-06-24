@@ -7,11 +7,13 @@ import { FutureServices } from '@/components/FutureServices';
 
 const Services = () => {
   return (
-    <div className="min-h-screen w-full bg-[#E7DED7] overflow-x-hidden">
+    <div className="min-h-screen w-full bg-[#E7DED7] flex flex-col justify-start relative overflow-hidden">
       <Header />
-      <ServicesHero />
-      <Solutions />
-      <FutureServices />
+      <main className="flex-1 w-full flex flex-col items-center justify-center">
+        <ServicesHero />
+        <Solutions />
+        <FutureServices />
+      </main>
       <Footer />
     </div>
   );

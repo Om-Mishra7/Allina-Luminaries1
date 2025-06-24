@@ -57,10 +57,12 @@ export const OurValues = () => {
     setOpenItems(items);
   };
 
-  // Calculate dynamic image alignment based on expanded content
+  // Calculate dynamic image transform based on expanded content
   const expandedCount = openItems.length;
-  // If any item is expanded, center the image vertically, else align to top
-  const imageAlign = expandedCount > 0 ? 'center' : 'flex-start';
+  // Calculate translateY to center image relative to accordion content
+  // Approximate content height per expanded item: ~100px, so center relative to total expanded height
+  const baseOffset = expandedCount > 0 ? (expandedCount * 50) + 80 : 0;
+  const imageTransform = `translateY(${baseOffset}px)`;
 
   return (
     <>
@@ -84,8 +86,8 @@ export const OurValues = () => {
                 width: '854px',
                 fontSize: '28px',
                 lineHeight: '40px',
-                letterSpacing: '1%',
-                fontWeight: 200,
+                letterSpacing: '0.01em',
+                fontWeight: 0,
                 height: 'auto',
                 margin: 0
               }}
@@ -103,18 +105,13 @@ export const OurValues = () => {
 
           <div className="flex flex-col md:flex-row gap-8 lg:gap-12 pb-12 lg:pb-16">
             {/* Left side - Image */}
-            <div
-              className="flex-shrink-0 w-[350px] lg:w-[500px] xl:w-[500px] mx-auto md:mx-0 flex justify-center items-center"
-              style={{
-                alignItems: 'center', // Always center vertically
-                transition: 'align-items 0.5s cubic-bezier(0.4,0,0.2,1)'
-              }}
-            >
+            <div className="flex-shrink-0 w-[350px] lg:w-[500px] xl:w-[500px] mx-auto md:mx-0 flex justify-center">
               <div 
                 className="w-[350px] h-[450px] lg:w-[500px] lg:h-[650px] xl:w-[500px] xl:h-[650px] bg-cover bg-center rounded-lg"
                 style={{
                   backgroundImage: 'url(https://c.animaapp.com/zheglGTa/img/unsplash-xu5mqq0chck.png)',
-                  transition: 'margin 0.5s cubic-bezier(0.4,0,0.2,1)'
+                  transform: imageTransform,
+                  transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               />
             </div>
@@ -136,7 +133,7 @@ export const OurValues = () => {
                           fontWeight: 400,
                           fontSize: '32px',
                           lineHeight: '79px',
-                          letterSpacing: '5%',
+                          letterSpacing: '0.05em',
                           display: 'block',
                           marginBottom: 0
                         }}
@@ -146,7 +143,7 @@ export const OurValues = () => {
                     </AccordionTrigger>
                     <AccordionContent>
                       <p className="text-white text-[14px] lg:text-[16px] xl:text-[18px] leading-6 lg:leading-7 max-w-[500px] font-normal mt-0"
-                        style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400, marginTop: 0 }}>
+                        style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400, marginTop: 0, letterSpacing: '0.03em' }}>
                             {value.desc}
                           </p>
                     </AccordionContent>

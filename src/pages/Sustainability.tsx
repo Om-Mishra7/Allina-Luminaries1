@@ -11,7 +11,7 @@ const Sustainability = () => {
   return (
     <div className="min-h-screen w-full bg-[#06153A] flex flex-col justify-start relative overflow-hidden">
       <Header />
-      <main className="w-full flex flex-col items-center justify-center">
+      <main className="flex-1 w-full flex flex-col items-center justify-center">
         <SustainabilityHero />
         <SustainabilityIntro />
         <OurCommitments />

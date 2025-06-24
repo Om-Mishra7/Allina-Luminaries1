@@ -62,7 +62,7 @@ export const MeetOurTeam = () => {
           <div className="relative overflow-hidden rounded-[15px] sm:rounded-[18px] md:rounded-[20px] group sm:col-span-2 md:col-span-1">
             <div className="relative w-full aspect-square overflow-hidden">
               <img 
-                src="https://c.animaapp.com/zheglGTa/img/image-13@2x.png" 
+                src="https://c.animaapp.com/zheglGTa/img/image-11@2x.png" 
                 alt="Team Member 3"
                 className="w-full h-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-110"
               />

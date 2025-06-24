@@ -121,8 +121,8 @@ export default {
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
+				'accordion-down': 'accordion-down 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+				'accordion-up': 'accordion-up 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
 				'expand-contract': 'expand-contract 0.6s ease-in-out',
 				'slideInFromBottom': 'slideInFromBottom 0.7s ease-out',
 				'slideInFromTop': 'slideInFromTop 0.7s ease-out'

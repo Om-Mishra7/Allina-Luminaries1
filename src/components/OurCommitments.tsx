@@ -50,6 +50,12 @@ export const OurCommitments = () => {
     setOpenItems(items);
   };
 
+  // Calculate dynamic image transform based on expanded content
+  const expandedCount = openItems.length;
+  // Calculate translateY to center image relative to accordion content
+  const baseOffset = expandedCount > 0 ? (expandedCount * 40) + 60 : 0;
+  const imageTransform = `translateY(${baseOffset}px)`;
+
   return (
     <section className="w-full bg-[#00343C] overflow-hidden">
       <div className="max-w-[1440px] mx-auto relative">
@@ -60,10 +66,9 @@ export const OurCommitments = () => {
             width: '946px',
             height: '125px',
             top: '36px',
-            left: '40px',
             fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-            fontWeight: 400,
-            fontSize: '99px',
+            fontWeight: 0,
+            fontSize: '90px',
             lineHeight: '125px',
             letterSpacing: '5%'
           }}
@@ -78,9 +83,8 @@ export const OurCommitments = () => {
             width: '1367px',
             height: '105px',
             top: '174px',
-            left: '40px',
             fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-            fontWeight: 400,
+            fontWeight: 100,
             fontSize: '20px',
             lineHeight: '35px',
             letterSpacing: '1%'
@@ -127,13 +131,15 @@ export const OurCommitments = () => {
           </div>
 
           {/* Right side - Image */}
-          <div className="flex-shrink-0 mx-auto md:mx-0 flex justify-center items-center order-1 md:order-2">
+          <div className="flex-shrink-0 mx-auto md:mx-0 flex justify-center order-1 md:order-2">
             <div 
               className="bg-cover bg-center rounded-lg"
               style={{
                 width: '578px',
                 height: '502px',
-                backgroundImage: 'url(https://c.animaapp.com/zheglGTa/img/unsplash-xu5mqq0chck.png)'
+                backgroundImage: 'url(https://c.animaapp.com/zheglGTa/img/unsplash-xu5mqq0chck.png)',
+                transform: imageTransform,
+                transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
               }}
             />
           </div>

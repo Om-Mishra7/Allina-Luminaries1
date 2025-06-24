@@ -21,36 +21,51 @@ export const AboutHero = () => {
         }}
       >
         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-          {/* WHO WE ARE heading */}
+          {/* WHO heading with line */}
+          <div className="flex items-center" style={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+            <div
+              className="about-hero-heading-who"
+              style={{
+                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                fontWeight: 400,
+                color: '#ffffff',
+                fontSize: 'clamp(5rem, 11vw, 10rem)',
+                letterSpacing: 'clamp(0.2rem, 0.8vw, 0.6rem)',
+                lineHeight: '1',
+                marginRight: 'clamp(1rem, 3vw, 2rem)'
+              }}
+            >
+              WHO
+            </div>
+            
+            {/* Decorative line after WHO */}
+            <div
+              style={{
+                flex: '1',
+                height: '1px',
+                backgroundColor: '#ffffff',
+                maxWidth: '300px'
+              }}
+            />
+          </div>
+          
+          {/* WE ARE heading */}
           <div
-            className="about-hero-heading"
+            className="about-hero-heading-we-are"
             style={{
               position: 'absolute',
-              width: '95%',
-              top: '0',
+              top: 'clamp(5rem, 11vw, 10rem)',
               left: '0',
               fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
               fontWeight: 400,
               color: '#ffffff',
-              fontSize: '10vw',
-              letterSpacing: '0.8vw',
-              lineHeight: '9vw'
+              fontSize: 'clamp(4rem, 10vw, 8rem)',
+              letterSpacing: 'clamp(0.2rem, 0.8vw, 0.6rem)',
+              lineHeight: '1'
             }}
           >
-            WHO WE ARE
+            WE ARE
           </div>
-          
-          {/* Decorative line */}
-          <div
-            style={{
-              position: 'absolute',
-              width: '40%',
-              height: '1px',
-              top: '20.19%',
-              left: '60%',
-              backgroundColor: '#ffffff'
-            }}
-          />
         </div>
       </div>
 
@@ -145,9 +160,14 @@ export const AboutHero = () => {
       {/* Responsive styles */}
       <style>{`
         @media (max-width: 1024px) {
-          .about-hero-heading {
-            font-size: 8vw !important;
-            line-height: 7vw !important;
+          .about-hero-heading-who,
+          .about-hero-heading-we-are {
+            font-size: clamp(3rem, 8vw, 6rem) !important;
+            letter-spacing: clamp(0.15rem, 0.6vw, 0.4rem) !important;
+          }
+          
+          .about-hero-heading-we-are {
+            top: clamp(4rem, 7vw, 5.5rem) !important;
           }
           
           .about-hero-text {
@@ -162,25 +182,57 @@ export const AboutHero = () => {
 
         @media (max-width: 768px) {
           .about-hero-heading-group {
-            width: 80% !important;
+            width: 90% !important;
             height: auto !important;
             top: 5% !important;
           }
           
-          .about-hero-heading {
-            font-size: 10vw !important;
-            line-height: 8.5vw !important;
+          .about-hero-heading-who,
+          .about-hero-heading-we-are {
+            font-size: clamp(2.5rem, 12vw, 4rem) !important;
+            letter-spacing: clamp(0.1rem, 1vw, 0.3rem) !important;
+          }
+          
+          .about-hero-heading-we-are {
+            top: clamp(3rem, 10vw, 4rem) !important;
           }
           
           .about-hero-text {
-            width: 80% !important;
-            font-size: 2vw !important;
-            line-height: 3vw !important;
+            width: 85% !important;
+            font-size: 2.5vw !important;
+            line-height: 3.5vw !important;
           }
           
           .about-hero-image {
-            width: 30% !important;
+            width: 35% !important;
             height: auto !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-hero-heading-group {
+            width: 95% !important;
+            top: 3% !important;
+          }
+          
+          .about-hero-heading-who,
+          .about-hero-heading-we-are {
+            font-size: clamp(2rem, 15vw, 3rem) !important;
+            letter-spacing: clamp(0.05rem, 1.2vw, 0.2rem) !important;
+          }
+          
+          .about-hero-heading-we-are {
+            top: clamp(2.5rem, 12vw, 3.5rem) !important;
+          }
+          
+          .about-hero-text {
+            width: 90% !important;
+            font-size: 3.5vw !important;
+            line-height: 4.5vw !important;
+          }
+          
+          .about-hero-image {
+            width: 40% !important;
           }
         }
       `}</style>
