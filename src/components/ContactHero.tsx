@@ -214,7 +214,13 @@ export const ContactHero: React.FC = () => {
               <img
                 src="/images/image1.jpg"
                 alt="Modern Office Conference Room"
-                className="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-cover rounded-[20px]"
+                className="object-cover rounded-[20px]"
+                style={{
+                  width: '650px',
+                  height: '725px',
+                  position: 'relative',
+                  top: '-40px'
+                }}
               />
             </div>
           </div>
@@ -224,16 +230,39 @@ export const ContactHero: React.FC = () => {
             <div className="bg-transparent p-6 sm:p-8">
               <div className="mb-6">
                 <p 
-                  className="text-[#06153A] text-base mb-6"
-                  style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                  className="text-[#06153A] mb-6"
+                  style={{ 
+                    fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+                    fontWeight: 400,
+                    fontSize: '20px',
+                    lineHeight: '35px',
+                    letterSpacing: '1%',
+                    width: '680px',
+                    height: '105px',
+                    position: 'relative',
+                    top: '-80px',
+                    right: '33px'
+                    
+                  }}
                 >
                   Have a question or feedback? We're happy to assist! Use the form below to reach out to us for any general inquiries, and our team will get back to you as soon as possible.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                onSubmit={handleSubmit} 
+                className="flex flex-col"
+                style={{
+                  width: '666px',
+                  height: '598px',
+                  position: 'relative',
+                  top: '-80px',
+                  right: '33px',
+                  gap: '26px'
+                }}
+              >
                 {/* First Name and Last Name */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-[26px]">
                   <div>
                     <label 
                       htmlFor="firstName" 
@@ -248,9 +277,15 @@ export const ContactHero: React.FC = () => {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
+                      className="w-full px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
                       placeholder="Your First Name..."
-                      style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                      style={{ 
+                        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+                        backgroundColor: '#E7DED7',
+                        height: '60px',
+                        borderRadius: '14px',
+                        border: '1px solid #606060'
+                      }}
                       required
                     />
                   </div>
@@ -268,9 +303,15 @@ export const ContactHero: React.FC = () => {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
+                      className="w-full px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
                       placeholder="Your Last Name..."
-                      style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                      style={{ 
+                        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+                        backgroundColor: '#E7DED7',
+                        height: '60px',
+                        borderRadius: '14px',
+                        border: '1px solid #606060'
+                      }}
                       required
                     />
                   </div>
@@ -291,9 +332,15 @@ export const ContactHero: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
+                    className="w-full px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
                     placeholder="Your Email Address..."
-                    style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                    style={{ 
+                      fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+                      backgroundColor: '#E7DED7',
+                      height: '60px',
+                      borderRadius: '14px',
+                      border: '1px solid #606060'
+                    }}
                     required
                   />
                 </div>
@@ -313,9 +360,15 @@ export const ContactHero: React.FC = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
+                    className="w-full px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent"
                     placeholder="Your Contact Number..."
-                    style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                    style={{ 
+                      fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+                      backgroundColor: '#E7DED7',
+                      height: '60px',
+                      borderRadius: '14px',
+                      border: '1px solid #606060'
+                    }}
                     required
                   />
                 </div>
@@ -335,9 +388,17 @@ export const ContactHero: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent resize-vertical"
+                    className="w-full px-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#06153A] focus:border-transparent resize-vertical"
                     placeholder="Your question or feedback..."
-                    style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif' }}
+                    style={{ 
+                      fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+                      backgroundColor: '#E7DED7',
+                      borderRadius: '14px',
+                      height: '140px',
+                      border: '1px solid #606060',
+                      paddingTop: '14px',
+                      paddingBottom: '14px'
+                    }}
                     required
                   />
                 </div>
