@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/accordion';
 
 export const SustainabilityIntro = () => (
-  <section className="w-full bg-[#E7DED7] py-10 flex justify-center items-center">
+  <section id="commitment-section" className="w-full bg-[#E7DED7] py-10 flex justify-center items-center">
     <p
       className="text-[#06153A] text-center mx-auto"
       style={{
@@ -57,51 +57,53 @@ export const OurCommitments = () => {
   const imageTransform = `translateY(${baseOffset}px)`;
 
   return (
-    <section className="w-full bg-[#00343C] overflow-hidden">
-      <div className="max-w-[1440px] mx-auto relative">
-        {/* Title */}
-        <h2
-          className="text-white font-normal absolute"
-          style={{
-            width: '946px',
-            height: '125px',
-            top: '36px',
-            fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-            fontWeight: 0,
-            fontSize: '90px',
-            lineHeight: '125px',
-            letterSpacing: '5%'
-          }}
-        >
-          OUR COMMITMENT
-        </h2>
+    <section className="w-full bg-[#00343C] overflow-hidden py-20">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div className="flex flex-col gap-16 mb-12">
+          {/* Title */}
+          <h2
+            className="text-white font-normal"
+            style={{
+              fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+              fontWeight: 0,
+              fontSize: 'clamp(48px, 8vw, 90px)',
+              lineHeight: '1.2',
+              letterSpacing: '0.05em'
+            }}
+          >
+            OUR COMMITMENT
+          </h2>
 
-        {/* Description Text */}
-        <p
-          className="text-white font-normal absolute"
-          style={{
-            width: '1367px',
-            height: '105px',
-            top: '174px',
-            fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-            fontWeight: 100,
-            fontSize: '20px',
-            lineHeight: '35px',
-            letterSpacing: '1%'
-          }}
-        >
-          At ALLINA, we are dedicated to sustainable development and energy efficiency. Our mission is to create infrastructure solutions that minimize environmental impact while maximizing energy savings and operational efficiency. By integrating advanced technologies like IoT, solar power, and energy-efficient systems, we aim to reduce carbon emissions and promote eco-friendly practices in every project we undertake.
-        </p>
+          {/* Description Text */}
+          <p
+            className="text-white font-normal max-w-7xl"
+            style={{
+              fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
+              fontWeight: 100,
+              fontSize: 'clamp(16px, 2vw, 20px)',
+              lineHeight: '1.75',
+              letterSpacing: '0.01em'
+            }}
+          >
+            At ALLINA, we are dedicated to sustainable development and energy efficiency. Our mission is to create infrastructure solutions that minimize environmental impact while maximizing energy savings and operational efficiency. By integrating advanced technologies like IoT, solar power, and energy-efficient systems, we aim to reduce carbon emissions and promote eco-friendly practices in every project we undertake.
+          </p>
+        </div>
 
-        <div className="flex flex-col md:flex-row gap-8 lg:gap-12 pb-12 lg:pb-16 pt-[371px]">
+        {/* Main Content */}
+        <div className="flex flex-col md:flex-row gap-16">
           {/* Left side - Accordion Commitments */}
           <div className="flex-1 min-w-0 order-2 md:order-1">
             <Accordion type="multiple" value={openItems} onValueChange={handleAccordionChange}>
               {commitments.map((commitment, idx) => (
                 <AccordionItem key={idx} value={idx.toString()} className="border-b border-white/30">
-                  <AccordionTrigger className="flex items-center gap-6 py-6">
-                    <span className="text-white text-[28px] font-normal min-w-[80px]"
-                      style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
+                  <AccordionTrigger className="flex items-center gap-8 py-8">
+                    <span className="text-white font-normal min-w-[80px]"
+                      style={{ 
+                        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+                        fontWeight: 400,
+                        fontSize: 'clamp(20px, 3vw, 28px)'
+                      }}>
                       {commitment.num}
                     </span>
                     <span
@@ -109,9 +111,9 @@ export const OurCommitments = () => {
                       style={{
                         fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
                         fontWeight: 400,
-                        fontSize: '32px',
-                        lineHeight: '40px',
-                        letterSpacing: '2%',
+                        fontSize: 'clamp(24px, 4vw, 32px)',
+                        lineHeight: '1.3',
+                        letterSpacing: '0.03em',
                         display: 'block',
                         marginBottom: 0
                       }}
@@ -119,9 +121,14 @@ export const OurCommitments = () => {
                       {commitment.title}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-white text-[18px] leading-7 max-w-[500px] font-normal mt-0"
-                      style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400, marginTop: 0 }}>
+                  <AccordionContent className="pb-8">
+                    <p className="text-white leading-7 max-w-[500px] font-normal"
+                      style={{ 
+                        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+                        fontWeight: 400,
+                        fontSize: 'clamp(16px, 2vw, 18px)',
+                        margin: 0
+                      }}>
                       {commitment.desc}
                     </p>
                   </AccordionContent>
@@ -135,8 +142,8 @@ export const OurCommitments = () => {
             <div 
               className="bg-cover bg-center rounded-lg"
               style={{
-                width: '578px',
-                height: '502px',
+                width: 'clamp(400px, 50vw, 578px)',
+                height: 'clamp(350px, 45vw, 502px)',
                 backgroundImage: 'url(https://c.animaapp.com/zheglGTa/img/unsplash-xu5mqq0chck.png)',
                 transform: imageTransform,
                 transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'

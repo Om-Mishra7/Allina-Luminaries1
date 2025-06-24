@@ -2,7 +2,13 @@ import React from 'react';
 
 export const ProjectsHero: React.FC = () => {
   return (
-    <section className="w-full bg-[#06153A] relative overflow-hidden" style={{ height: '86.25vh' }}>
+    <section 
+      className="w-full bg-[#06153A] relative overflow-hidden" 
+      style={{ 
+        height: 'calc(100vh - 70px)',
+        minHeight: 'calc(100vh - 70px)'
+      }}
+    >
       <div className="w-full relative h-full max-w-[1440px] mx-auto">
         {/* Main Content */}
         <div className="relative z-10">

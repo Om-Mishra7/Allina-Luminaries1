@@ -29,10 +29,15 @@ const projects = [
 ];
 
 export const GreenProjects = () => (
-  <section className="w-full bg-[#E7DED7] py-16 px-8 md:px-16 flex flex-col items-center">
+  <section className="w-full bg-[#E7DED7] py-20 px-8 md:px-16 flex flex-col items-center">
     <h3 
-      className="text-[#06153A] text-xs tracking-[0.2em] font-normal text-center mb-16" 
-      style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', letterSpacing: '0.2em' }}
+      className="text-[#06153A] text-2xl md:text-3xl lg:text-4xl tracking-[0.2em] font-normal text-center mb-20" 
+      style={{ 
+        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
+        letterSpacing: '0.03em',
+        fontSize: 'clamp(20px, 3vw, 23px)',
+        fontWeight: 400
+      }}
     >
       GREEN PROJECTS
     </h3>
@@ -40,7 +45,7 @@ export const GreenProjects = () => (
       {projects.map((project, idx) => (
         <div 
           key={idx} 
-          className="flex flex-col md:flex-row items-center gap-12 md:gap-16"
+          className="flex flex-col md:flex-row items-center gap-16"
         >
           <div className="w-full md:w-[657px] flex-shrink-0">
             <div 
@@ -54,10 +59,8 @@ export const GreenProjects = () => (
               />
             </div>
           </div>
-          <div className="w-full md:flex-1 flex flex-col justify-center">
-            <div 
-              className="w-full md:w-[602px] h-[136px] mb-[45px]"
-            >
+          <div className="w-full md:flex-1 flex flex-col">
+            <div className="w-full md:w-[602px] mb-4">
               <h4 
                 className="text-[#06153A] text-[46px] leading-[63px] font-semibold"
                 style={{ 
@@ -69,11 +72,11 @@ export const GreenProjects = () => (
                 {project.title}
               </h4>
             </div>
-            <div className="mt-[60px]">
+            <div className="space-y-6">
               {project.desc.map((p, i) => (
                 <div 
                   key={i} 
-                  className="w-full md:w-[638px] min-h-[91px] flex items-center mb-[45px] last:mb-0"
+                  className="w-full md:w-[638px]"
                 >
                   <p 
                     className="text-[#676767] text-[19px]"

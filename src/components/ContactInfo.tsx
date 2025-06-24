@@ -2,7 +2,7 @@ import React from 'react';
 
 export const ContactInfo: React.FC = () => {
   return (
-    <section className="w-full bg-[#E7DED7] py-12 sm:py-16 md:py-20">
+    <section className="w-full bg-[#E7DED7] pt-0 sm:pt-8 md:pt-8 pb-12 sm:pb-8 md:pb-4">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
         {/* General Inquiries Section */}
         <div className="mb-16 sm:mb-20">
@@ -49,7 +49,7 @@ export const ContactInfo: React.FC = () => {
           flexDirection: 'row',
           position: 'relative',
           marginTop: '-100px',
-          marginBottom: '48px',
+          marginBottom: '-40px',
           maxWidth: '100%'
         }}>
           {/* Call Us Directly */}
@@ -176,12 +176,8 @@ export const ContactInfo: React.FC = () => {
 
         {/* Why Contact ALLINA Section */}
         <div>
-          <h2 className="text-[#06153A] mb-12"
+          <h2 className="text-[#06153A] mb-8"
               style={{
-                width: '600px',
-                height: '54px',
-                position: 'relative',
-                
                 fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
                 fontWeight: 550,
                 fontSize: '45px',
@@ -199,7 +195,7 @@ export const ContactInfo: React.FC = () => {
             display: 'flex',
             flexDirection: 'row',
             position: 'relative',
-            marginBottom: '48px',
+            marginBottom: '32px',
             maxWidth: '100%'
           }}>
             {/* Card 1 - Prompt Responses */}

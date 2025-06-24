@@ -24,12 +24,12 @@ export const ContactHero: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20" style={{ backgroundColor: '#E7DED7' }}>
+    <section className="w-full pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-6 md:pb-0" style={{ backgroundColor: '#E7DED7' }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
         {/* Header Section */}
-        <div className="mb-12 sm:mb-16">
+        <div className="mb-8 sm:mb-10">
           <h1 
-            className="text-[#06153A] mb-6"
+            className="text-[#06153A] mb-0"
             style={{ 
               width: '500px',
               height: '54px',
@@ -51,7 +51,6 @@ export const ContactHero: React.FC = () => {
               width: '1360px',
               height: '70px',
           
-              marginTop: '22px',
               fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
               fontWeight: 400,
               fontSize: '20px',

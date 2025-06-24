@@ -14,6 +14,7 @@ const About = () => {
       <Header />
       <main className="flex-1 w-full flex flex-col items-center justify-center">
         <AboutHero />
+        <VisionMissionSection />
         <OurValues />
         <MeetOurTeam />
         <AboutLocationsSlider />
