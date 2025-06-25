@@ -53,7 +53,7 @@ export const FutureServices = () => {
 
   return (
     <>
-      {/* OUR VALUES Section Title */}
+      {/* FUTURE SERVICES Section Title */}
       <div className="flex justify-center items-center py-8 sm:py-10 md:py-12 px-4">
         <h2 className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] text-center"
             style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
@@ -61,8 +61,8 @@ export const FutureServices = () => {
         </h2>
       </div>
 
-      {/* OUR VALUES Content */}
-      <div className="w-full mb-12 sm:mb-16 md:mb-[60px] overflow-hidden" style={{ backgroundColor: '#06153A' }}>
+      {/* FUTURE SERVICES Content */}
+      <div className="w-full overflow-hidden" style={{ backgroundColor: '#06153A' }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
           {/* Top Text and Expand/Collapse Button */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-6 sm:pt-8 md:pt-12 mb-8 sm:mb-12 md:mb-16">
@@ -90,7 +90,7 @@ export const FutureServices = () => {
             </button>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-8 lg:gap-12 pb-12 lg:pb-16">
+          <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
             {/* Left side - Image */}
             <div className="flex-shrink-0 w-[350px] lg:w-[500px] xl:w-[500px] mx-auto md:mx-0 flex justify-center">
               <div 

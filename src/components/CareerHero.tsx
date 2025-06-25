@@ -88,10 +88,10 @@ export const CareerHero: React.FC = () => {
              className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black transition-all duration-300 inline-flex items-center justify-center"
              style={{
                fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-               fontWeight: 500,
-               fontSize: '14px',
+               fontWeight: 400,
+               fontSize: '18px',
                lineHeight: '30px',
-               letterSpacing: '0.1em',
+               letterSpacing: '2px',
                textAlign: 'center',
                width: '225px',
                height: '60px',
@@ -131,12 +131,11 @@ export const CareerHero: React.FC = () => {
             <div className="flex items-center justify-center">
               <a href="#open-roles" 
                  onClick={handleScrollToOpenRoles}
-                 className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black font-medium px-8 py-3 sm:px-10 sm:py-4 rounded-full text-sm sm:text-base transition-all duration-300 min-w-[160px] sm:min-w-[180px]"
+                 className="bg-[#DDB9A2] hover:bg-[#DDB9A2]/90 text-black font-medium px-8 py-3 sm:px-10 sm:py-4 rounded-full text-sm sm:text-base transition-all duration-300 min-w-[160px] sm:min-w-[180px] tracking-[2px] sm:tracking-[3px] md:tracking-[4px]"
                  style={{ 
                    fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif',
-                   fontSize: '14px',
-                   fontWeight: 600,
-                   letterSpacing: '0.1em',
+                   fontSize: '16px',
+                   fontWeight: 400,
                    textTransform: 'uppercase'
                  }}>
                 OPEN ROLES

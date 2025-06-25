@@ -46,12 +46,12 @@ export const SustainabilitySlider = () => {
 
   return (
     <section className="w-full bg-[#E7DED7] pt-0 pb-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-[1440px] mx-auto flex flex-col" style={{ gap: '80px' }}>
+      <div className="max-w-[1440px] mx-auto flex flex-col" style={{ gap: '40px' }}>
         {/* Header Section */}
         <div className="text-center">
           <h2 
-            className="text-[#06153A] text-sm font-medium tracking-[0.02em] uppercase mb-6"
-            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', letterSpacing: '0.02em', fontSize: '18px', fontWeight: 500 }}
+            className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] uppercase mb-6"
+            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400, letterSpacing: '0.03em' }}
           >
             WHY SUSTAINABILITY MATTERS
           </h2>
@@ -60,8 +60,10 @@ export const SustainabilitySlider = () => {
             style={{ 
               fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
               fontWeight: 400,
-              fontSize: '18px',
-              lineHeight: '28px'
+              fontSize: '17px',
+              lineHeight: '28px',
+              letterSpacing: '0.01em',
+              marginBottom: '0px'
             }}
           >
             At ALLINA, we believe that sustainability is not just a responsibility but an opportunity to create lasting value for our clients, communities, and the planet. By prioritizing green practices and energy-efficient solutions, we aim to:

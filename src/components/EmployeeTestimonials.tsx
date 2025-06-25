@@ -2,17 +2,29 @@ import React, { useState, useEffect } from 'react';
 
 const testimonials = [
   {
-    text: "Working as an IoT Engineer in our smart streetlighting division has been an exciting journey—every day, I get to build solutions that make cities safer and more energy-efficient.",
+    text: [
+      "Working as an IoT Engineer in our smart streetlighting division",
+      "has been an exciting journey—every day, I get to build solutions",
+      "that make cities safer and more energy-efficient."
+    ],
     author: "Sarah Johnson",
     role: "IoT Engineer"
   },
   {
-    text: "Being part of the renewable energy team at ALLINA has given me the opportunity to work on cutting-edge solar projects that are making a real difference in sustainable development.",
+    text: [
+      "Being part of the renewable energy team at ALLINA has given me",
+      "the opportunity to work on cutting-edge solar projects that are",
+      "making a real difference in sustainable development."
+    ],
     author: "Michael Chen",
     role: "Renewable Energy Specialist"
   },
   {
-    text: "The collaborative environment and innovative projects at ALLINA have helped me grow both professionally and personally. Every project feels meaningful and impactful.",
+    text: [
+      "The collaborative environment and innovative projects at ALLINA",
+      "have helped me grow both professionally and personally.",
+      "Every project feels meaningful and impactful."
+    ],
     author: "Priya Sharma",
     role: "Project Manager"
   },
@@ -51,23 +63,19 @@ export const EmployeeTestimonials = () => {
   const lineWidth = `calc((100% - ${containerWidth}px) / 2 - 48px)`;
 
   return (
-    <section className="w-full bg-[#E7DED7] py-16 flex flex-col items-center min-h-[600px]">
-      {/* Title */}
-      <h2 
-        className="text-[#06153A] mb-8 text-center"
-        style={{
-          fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-          fontWeight: 200,
-          fontSize: '16px',
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase'
-        }}
-      >
-        EMPLOYEE TESTIMONIALS
-      </h2>
-      
-      {/* Dots */}
-      <div className="flex gap-2 mb-12">
+    <>
+      {/* EMPLOYEE TESTIMONIALS Section Title */}
+      <div className="flex justify-center items-center py-8 sm:py-10 md:py-12 px-4">
+        <h2 className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] text-center"
+            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
+          EMPLOYEE TESTIMONIALS
+        </h2>
+      </div>
+
+      {/* EMPLOYEE TESTIMONIALS Content */}
+      <section className="w-full bg-[#E7DED7] pt-0 pb-8 flex flex-col items-center min-h-[400px]">
+        {/* Dots */}
+        <div className="flex gap-2 mb-8">
         {testimonials.map((_, idx) => (
           <span
             key={idx}
@@ -77,8 +85,8 @@ export const EmployeeTestimonials = () => {
         ))}
       </div>
 
-      {/* Animated lines and testimonial */}
-      <div className="relative flex items-center justify-center w-full max-w-6xl" style={{ minHeight: '300px', marginBottom: '80px' }}>
+              {/* Animated lines and testimonial */}
+        <div className="relative flex items-center justify-center w-full max-w-6xl" style={{ minHeight: '300px', marginBottom: '40px' }}>
         {/* Left line */}
         <div
           className="absolute left-0 top-1/2 -translate-y-1/2 h-[1px] bg-[#7b7b7b] transition-all duration-500"
@@ -146,15 +154,20 @@ export const EmployeeTestimonials = () => {
                
                {/* Testimonial Text */}
                <div 
-                 className="text-[#06153A] text-center mb-8 leading-relaxed"
+                 className="text-[#06153A] text-center mb-8"
                  style={{
                    fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
                    fontSize: '18px',
                    lineHeight: '1.6',
-                   width: '1000px'
+                   width: '1000px',
+                   letterSpacing: '0.05em'
                  }}
                >
-                 {testimonials[current].text}
+                 {testimonials[current].text.map((line, index) => (
+                   <div key={index} style={{ marginBottom: index < testimonials[current].text.length - 1 ? '8px' : '0' }}>
+                     {line}
+                   </div>
+                 ))}
                </div>
                
                {/* Author Info */}
@@ -183,5 +196,6 @@ export const EmployeeTestimonials = () => {
          </div>
       </div>
     </section>
+    </>
   );
 }; 

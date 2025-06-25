@@ -29,18 +29,17 @@ const projects = [
 ];
 
 export const GreenProjects = () => (
-  <section className="w-full bg-[#E7DED7] py-20 px-8 md:px-16 flex flex-col items-center">
-    <h3 
-      className="text-[#06153A] text-2xl md:text-3xl lg:text-4xl tracking-[0.2em] font-normal text-center mb-20" 
-      style={{ 
-        fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 
-        letterSpacing: '0.03em',
-        fontSize: 'clamp(20px, 3vw, 23px)',
-        fontWeight: 400
-      }}
-    >
-      GREEN PROJECTS
-    </h3>
+  <>
+    {/* GREEN PROJECTS Section Title */}
+    <div className="w-full flex justify-center bg-[#E7DED7] items-center py-8 sm:py-10 md:py-12 px-4">
+      <h2 className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] text-center"
+          style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
+        GREEN PROJECTS
+      </h2>
+    </div>
+
+          {/* GREEN PROJECTS Content */}
+      <section className="w-full bg-[#E7DED7] pt-0 pb-12 px-8 md:px-16 flex flex-col items-center">
     <div className="flex flex-col gap-24 w-full max-w-[1440px]">
       {projects.map((project, idx) => (
         <div 
@@ -97,4 +96,5 @@ export const GreenProjects = () => (
       ))}
     </div>
   </section>
+  </>
 ); 

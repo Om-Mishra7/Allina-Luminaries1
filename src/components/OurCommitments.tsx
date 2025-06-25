@@ -46,6 +46,16 @@ export const OurCommitments = () => {
 
   const [openItems, setOpenItems] = useState([]);
 
+  const allOpen = openItems.length === commitments.length;
+
+  const handleExpandCollapseAll = () => {
+    if (allOpen) {
+      setOpenItems([]);
+    } else {
+      setOpenItems(commitments.map((_, idx) => idx.toString()));
+    }
+  };
+
   const handleAccordionChange = (items) => {
     setOpenItems(items);
   };
@@ -60,7 +70,7 @@ export const OurCommitments = () => {
     <section className="w-full bg-[#00343C] overflow-hidden py-20">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="flex flex-col gap-16 mb-12">
+        <div className="flex flex-col gap-8 mb-0">
           {/* Title */}
           <h2
             className="text-white font-normal"
@@ -88,6 +98,17 @@ export const OurCommitments = () => {
           >
             At ALLINA, we are dedicated to sustainable development and energy efficiency. Our mission is to create infrastructure solutions that minimize environmental impact while maximizing energy savings and operational efficiency. By integrating advanced technologies like IoT, solar power, and energy-efficient systems, we aim to reduce carbon emissions and promote eco-friendly practices in every project we undertake.
           </p>
+
+          {/* Expand/Collapse Button */}
+          <div className="flex justify-start mt-0">
+            <button
+              className="text-white text-lg font-normal tracking-[2px] px-6 py-2 border border-white rounded-full hover:bg-white hover:text-black transition"
+              style={{ fontWeight: 400 }}
+              onClick={handleExpandCollapseAll}
+            >
+              {allOpen ? 'COLLAPSE ALL -' : 'EXPAND ALL +'}
+            </button>
+          </div>
         </div>
 
         {/* Main Content */}
@@ -97,7 +118,7 @@ export const OurCommitments = () => {
             <Accordion type="multiple" value={openItems} onValueChange={handleAccordionChange}>
               {commitments.map((commitment, idx) => (
                 <AccordionItem key={idx} value={idx.toString()} className="border-b border-white/30">
-                  <AccordionTrigger className="flex items-center gap-8 py-8">
+                  <AccordionTrigger className="flex items-center gap-8 py-8" iconColor="#ffffff">
                     <span className="text-white font-normal min-w-[80px]"
                       style={{ 
                         fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', 

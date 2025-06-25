@@ -5,7 +5,7 @@ export const ProjectsHighlights = () => {
   const containerStyle: React.CSSProperties = {
     width: '100%',
     background: '#ede5df',
-    padding: '64px 0',
+    padding: '64px 0 64px 0',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -113,18 +113,14 @@ export const ProjectsHighlights = () => {
   };
 
   return (
-    <section style={containerStyle}>
-      <h3 style={{
-        textAlign: 'center',
-        color: '#323232',
-        letterSpacing: '0.2em',
-        fontSize: 14,
-        fontWeight: 600,
-        marginBottom: 32,
-        textTransform: 'uppercase',
-      }}>
-        WHY OUR PROJECTS STANDS OUT?
-      </h3>
+    <section style={{...containerStyle, marginBottom: '60px', marginTop: '60px'}}>
+      {/* WHY OUR PROJECTS STANDS OUT Section Title */}
+      <div className="flex justify-center items-center pb-12 px-4">
+        <h2 className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] text-center"
+            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
+          WHY OUR PROJECTS STANDS OUT?
+        </h2>
+      </div>
       <div style={groupStyle}>
         {/* Card 1 */}
         <div style={cardBase}>

@@ -116,11 +116,18 @@ const Solutions = () => {
   ];
 
   return (
-    <div className="w-full bg-[#E7DED7] py-20">
-      <div className="container mx-auto px-4 flex flex-col items-center">
-        <h2 className="text-2xl font-medium text-center mb-12 uppercase tracking-wider">
+    <>
+      {/* STREETLIGHTING SOLUTIONS Section Title */}
+      <div className="flex justify-center items-center py-8 sm:py-10 md:py-12 px-4">
+        <h2 className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] text-center"
+            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
           STREETLIGHTING SOLUTIONS
         </h2>
+      </div>
+
+      {/* STREETLIGHTING SOLUTIONS Content */}
+      <div className="w-full bg-[#E7DED7] pt-0 pb-0">
+        <div className="container mx-auto px-4 flex flex-col items-center">
         
         <div style={{ width: '1360px', maxWidth: '100%' }}>
           <Accordion type="single" collapsible className="w-full">
@@ -210,6 +217,7 @@ const Solutions = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

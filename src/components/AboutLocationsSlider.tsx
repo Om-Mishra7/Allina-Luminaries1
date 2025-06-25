@@ -50,20 +50,17 @@ export const AboutLocationsSlider = () => {
   const lineWidth = `calc((100% - ${imageWidth}px) / 2 - 48px)`; // From screen edge to image edge
 
   return (
-    <section className="w-full bg-[#E7DED7] py-16 flex flex-col items-center min-h-[580px]">
-      {/* Title */}
-      <h2 
-        className="text-[#06153A] mb-8 text-center"
-        style={{
-          fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-          fontWeight: 200,
-          fontSize: '16px',
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase'
-        }}
-      >
-        OUR CASE STUDIES
-      </h2>
+    <>
+      {/* OUR CASE STUDIES Section Title */}
+      <div className="flex justify-center items-center py-3 sm:py-10 md:py-4 px-4">
+        <h2 className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] text-center"
+            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
+          OUR CASE STUDIES
+        </h2>
+      </div>
+
+      {/* OUR CASE STUDIES Content */}
+      <section className="w-full bg-[#E7DED7] pt-0 pb-16 flex flex-col items-center min-h-[580px] mb-12 sm:mb-16 md:mb-[60px]">
       
       {/* Dots */}
       <div className="flex gap-2 mb-12">
@@ -162,5 +159,6 @@ export const AboutLocationsSlider = () => {
         </div>
       </div>
     </section>
+    </>
   );
 }; 

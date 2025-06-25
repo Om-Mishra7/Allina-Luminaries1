@@ -353,7 +353,7 @@ export const OpenRoles: React.FC = () => {
   const hasResults = filteredEngineeringRoles.length > 0 || filteredManagementRoles.length > 0;
 
   return (
-    <section id="open-roles" className="w-full bg-[#E7DED7] py-16 px-4 sm:px-6 lg:px-8">
+    <section id="open-roles" className="w-full bg-[#E7DED7] pt-16 pb-0 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1400px] mx-auto">
         {/* Search Bar */}
         <div className="mb-8" style={{ 
@@ -401,14 +401,11 @@ export const OpenRoles: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 
-            className="text-[#06153A] font-medium tracking-wider uppercase mb-8"
+            className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] uppercase mb-8"
             style={{ 
               fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif',
-              width: '150px',
-              height: '24px',
-              fontSize: '14px',
-              margin: '0 auto',
-              letterSpacing: '0.1em'
+              fontWeight: 400,
+              margin: '0 auto'
             }}
           >
             OPEN ROLES
@@ -552,7 +549,7 @@ export const OpenRoles: React.FC = () => {
             {filteredManagementRoles.length > 0 && <NavigationDots total={5} current={0} />}
             
             {/* Decorative Line SVG */}
-            <div className="flex justify-center mt-12 mb-8 w-full">
+            <div className="flex justify-center mt-12 mb-0 w-full">
               <div className="w-full">
                 <svg width="100%" height="2" viewBox="0 0 1200 2" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
                   <line x1="0" y1="1" x2="1200" y2="1" stroke="#777777" strokeWidth="1"/>

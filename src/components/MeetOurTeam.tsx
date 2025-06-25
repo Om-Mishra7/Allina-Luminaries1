@@ -6,14 +6,15 @@ export const MeetOurTeam = () => {
       {/* MEET OUR TEAM Section Title */}
       <div className="flex justify-center items-center py-8 sm:py-10 md:py-12 px-4">
         <h2 className="text-[#06153A] text-lg sm:text-xl md:text-[25px] font-normal tracking-[2px] sm:tracking-[3px] md:tracking-[4px] text-center"
-            style={{ fontFamily: '"Myriad Pro", Helvetica, Arial, sans-serif' }}>
+            style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
           MEET OUR TEAM
         </h2>
       </div>
 
       {/* MEET OUR TEAM Content */}
-      <div className="flex flex-col items-center gap-6 sm:gap-8 mb-12 sm:mb-14 md:mb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto w-full">
+      <div className="w-full bg-[#E7DED7]">
+        <div className="flex flex-col items-center pt-0 pb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto w-full">
           {/* Team Member 1 */}
           <div className="relative overflow-hidden rounded-[15px] sm:rounded-[18px] md:rounded-[20px] group">
             <div className="relative w-full aspect-square overflow-hidden">
@@ -78,6 +79,7 @@ export const MeetOurTeam = () => {
                 Position
               </p>
             </div>
+          </div>
           </div>
         </div>
       </div>
