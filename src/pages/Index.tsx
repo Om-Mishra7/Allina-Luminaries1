@@ -57,7 +57,7 @@ const Index = () => {
       >
         {/* Footer - positioned fixed in background */}
         <div 
-          className="sticky top-0 z-10 w-full h-screen flex items-end"
+          className="sticky top-0 z-10 w-full h-screen flex items-end bg-white"
         >
           <div className="w-full">
             <Footer />
