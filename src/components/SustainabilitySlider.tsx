@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const SustainabilitySlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(1); // Start at 1 because of clone
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const slides = [
     {
@@ -27,12 +28,55 @@ export const SustainabilitySlider = () => {
     }
   ];
 
+  // Create carousel items with clones for infinite loop
+  const carouselSlides = [
+    slides[slides.length - 1], // Clone of last slide
+    ...slides,
+    slides[0] // Clone of first slide
+  ];
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide(prev => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide(prev => prev - 1);
+  };
+
+  const goToSlide = (slideIndex: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide(slideIndex + 1); // Add 1 to account for leading clone
+  };
+
+  // Handle infinite loop transitions
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        // Reset to actual slide when reaching clones (without animation)
+        if (currentSlide === 0) {
+          // Reached clone of last slide, jump to actual last slide
+          setCurrentSlide(slides.length);
+        } else if (currentSlide === carouselSlides.length - 1) {
+          // Reached clone of first slide, jump to actual first slide
+          setCurrentSlide(1);
+        }
+        setIsTransitioning(false);
+      }, 700); // Match transition duration
+      
+      return () => clearTimeout(timer);
+    }
+  }, [currentSlide, isTransitioning, slides.length, carouselSlides.length]);
+
+  // Get the actual slide index for dot indicators (excluding clones)
+  const getActualSlideIndex = (index: number) => {
+    if (index === 0) return slides.length - 1; // Clone of last slide
+    if (index === carouselSlides.length - 1) return 0; // Clone of first slide
+    return index - 1; // Actual slides (adjust for leading clone)
   };
 
   // Auto-play functionality
@@ -74,12 +118,13 @@ export const SustainabilitySlider = () => {
         <div className="relative w-full overflow-hidden rounded-lg h-[400px] sm:h-[500px] md:h-[600px] lg:h-[697px]">
           {/* Slides Container */}
           <div 
-            className="flex h-full transition-transform duration-700 ease-in-out"
+            className="flex h-full ease-in-out"
             style={{
-              transform: `translateX(-${currentSlide * 100}%)`
+              transform: `translateX(-${currentSlide * 100}%)`,
+              transition: isTransitioning ? 'transform 0.7s ease-in-out' : 'none'
             }}
           >
-            {slides.map((slide, index) => (
+            {carouselSlides.map((slide, index) => (
               <div key={index} className="relative w-full h-full flex-shrink-0">
                 <img
                   src={slide.image}
@@ -133,9 +178,9 @@ export const SustainabilitySlider = () => {
             {slides.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => goToSlide(index)}
                 className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide ? 'bg-white' : 'bg-white/40'
+                  index === getActualSlideIndex(currentSlide) ? 'bg-white' : 'bg-white/40'
                 }`}
               />
             ))}

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 export const CompletedProjects = () => {
   const [selectedState, setSelectedState] = useState<'rajasthan' | 'haryana'>('rajasthan');
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(1); // Start at 1 because of clone
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Sample project images for carousel in Card Container
   const projectImages = [
@@ -29,6 +30,13 @@ export const CompletedProjects = () => {
     }
   ];
 
+  // Create carousel items with clones for infinite loop
+  const carouselItems = [
+    projectImages[projectImages.length - 1], // Clone of last slide
+    ...projectImages,
+    projectImages[0] // Clone of first slide
+  ];
+
   // Sample project card data (separate from image carousel)
   const currentCard = {
     title: "Solar Street Lights",
@@ -41,14 +49,42 @@ export const CompletedProjects = () => {
   };
 
   const handlePrevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentImageIndex(prev => prev - 1);
   };
 
   const handleNextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % projectImages.length);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentImageIndex(prev => prev + 1);
   };
 
-  const currentImage = projectImages[currentImageIndex];
+  // Handle infinite loop transitions
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        // Reset to actual slide when reaching clones (without animation)
+        if (currentImageIndex === 0) {
+          // Reached clone of last slide, jump to actual last slide
+          setCurrentImageIndex(projectImages.length);
+        } else if (currentImageIndex === carouselItems.length - 1) {
+          // Reached clone of first slide, jump to actual first slide
+          setCurrentImageIndex(1);
+        }
+        setIsTransitioning(false);
+      }, 500); // Match transition duration
+      
+      return () => clearTimeout(timer);
+    }
+  }, [currentImageIndex, isTransitioning, projectImages.length, carouselItems.length]);
+
+  // Get the actual slide index for dot indicators (excluding clones)
+  const getActualSlideIndex = (index: number) => {
+    if (index === 0) return projectImages.length - 1; // Clone of last slide
+    if (index === carouselItems.length - 1) return 0; // Clone of first slide
+    return index - 1; // Actual slides (adjust for leading clone)
+  };
 
   return (
     <div style={{ position: 'relative' }}>
@@ -137,66 +173,72 @@ export const CompletedProjects = () => {
         backgroundColor: '#111111',
         borderRadius: '21px',
         border: '1px solid #323232',
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        overflow: 'hidden'
       }}>
+        {/* Carousel Container */}
         <div style={{
-          position: 'relative',
-          width: '100%',
-          height: '100%',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          width: `${carouselItems.length * 644}px`,
+          height: '100%',
+          transform: `translateX(-${currentImageIndex * 644}px)`,
+          transition: isTransitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
         }}>
-          <img 
-            src={currentImage.src}
-            alt={currentImage.alt}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              borderRadius: '21px'
-            }}
-          />
-          <div style={{
-            position: 'absolute',
-            bottom: '20px',
-            left: '20px',
-            right: '20px',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            padding: '10px 15px',
-            borderRadius: '8px'
-          }}>
-            <div style={{
-              color: '#ffffff',
-              fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
-              fontSize: '18px',
-              fontWeight: '400',
-              marginBottom: '5px'
+          {carouselItems.map((image, index) => (
+            <div key={index} style={{
+              position: 'relative',
+              width: '644px',
+              height: '415px',
+              flexShrink: 0
             }}>
-              {currentImage.title}
+              <img 
+                src={image.src}
+                alt={image.alt}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '21px'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '20px',
+                right: '20px',
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                padding: '10px 15px',
+                borderRadius: '8px'
+              }}>
+                <div style={{
+                  color: '#ffffff',
+                  fontFamily: '"Myriad Pro-SemiExtended", Helvetica',
+                  fontSize: '18px',
+                  fontWeight: '400',
+                  marginBottom: '5px'
+                }}>
+                  {image.title}
+                </div>
+                <div style={{
+                  display: 'flex',
+                  gap: '6px',
+                  justifyContent: 'center'
+                }}>
+                  {projectImages.map((_, dotIndex) => (
+                    <div
+                      key={dotIndex}
+                      style={{
+                        width: '8px',
+                        height: '8px',
+                        borderRadius: '50%',
+                        backgroundColor: dotIndex === getActualSlideIndex(currentImageIndex) ? '#ddb9a2' : '#666666',
+                        transition: 'background-color 0.3s ease'
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
-            <div style={{
-              display: 'flex',
-              gap: '6px',
-              justifyContent: 'center'
-            }}>
-              {projectImages.map((_, index) => (
-                <div
-                  key={index}
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    backgroundColor: index === currentImageIndex ? '#ddb9a2' : '#666666',
-                    transition: 'background-color 0.3s ease'
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 

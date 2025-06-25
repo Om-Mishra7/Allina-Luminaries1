@@ -75,7 +75,7 @@ export const OurValues = () => {
       </div>
 
       {/* OUR VALUES Content */}
-      <div className="w-full bg-black overflow-hidden">
+      <div className="w-full bg-black overflow-hidden mb-8">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
           {/* Top Text and Expand/Collapse Button */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-6 sm:pt-8 md:pt-12 mb-8 sm:mb-12 md:mb-16">
@@ -121,7 +121,7 @@ export const OurValues = () => {
               <Accordion type="multiple" value={openItems} onValueChange={handleAccordionChange}>
                 {values.map((value, idx) => (
                   <AccordionItem key={idx} value={idx.toString()} className="border-b border-white/30">
-                    <AccordionTrigger className="flex items-center gap-6 py-6">
+                    <AccordionTrigger className="flex items-center gap-6 py-6" iconColor="#ffffff">
                       <span className="text-white text-[20px] lg:text-[24px] xl:text-[28px] font-normal min-w-[60px] lg:min-w-[80px]"
                         style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
                         {value.num}

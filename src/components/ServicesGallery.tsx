@@ -62,6 +62,13 @@ export const ServicesGallery: React.FC = () => {
     }
   ];
 
+  // Calculate the centering offset for desktop layout
+  // Total gallery width is approximately 1358px (from 42px to 1400px)
+  // We want to center this within the container
+  const galleryWidth = 1358; // Total width of the gallery layout
+  const containerMaxWidth = 1440; // Max width of container
+  const centeringOffset = (containerMaxWidth - galleryWidth) / 2;
+
   return (
     <section 
       ref={sectionRef}
@@ -94,31 +101,44 @@ export const ServicesGallery: React.FC = () => {
           ))}
         </div>
 
-        {/* Desktop Layout */}
-        <div className="hidden md:block relative">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              className={`absolute rounded-[20px] overflow-hidden transition-all duration-500 cursor-pointer ${
-                hoveredId !== null && hoveredId !== service.id ? 'scale-95 opacity-50' : ''
-              } ${hoveredId === service.id ? 'scale-105 z-10' : ''}`}
-              style={service.size}
-              onMouseEnter={() => setHoveredId(service.id)}
-              onMouseLeave={() => setHoveredId(null)}
-            >
-              <img 
-                src={service.image}
-                alt={service.title}
-                className="w-full h-full object-cover"
-              />
-              <div className={`absolute inset-0 bg-black/50 flex flex-col justify-end p-6 transition-opacity duration-300 ${
-                hoveredId === service.id ? 'opacity-100' : 'opacity-0'
-              }`}>
-                <h3 className="text-white text-2xl font-normal mb-2">{service.title}</h3>
-                <p className="text-[#DDB9A2] text-sm">{service.description}</p>
-              </div>
-            </div>
-          ))}
+        {/* Desktop Layout - Centered */}
+        <div className="hidden md:block relative flex justify-center">
+          <div className="relative" style={{ width: `${galleryWidth}px`, height: '716.51px' }}>
+            {services.map((service) => {
+              // Calculate centered position by subtracting the original offset and adding centering offset
+              const originalLeft = parseFloat(service.size.left?.replace('px', '') || '0');
+              const centeredLeft = originalLeft - 42; // Remove original offset from leftmost element
+              
+              return (
+                <div
+                  key={service.id}
+                  className={`absolute rounded-[20px] overflow-hidden transition-all duration-500 cursor-pointer ${
+                    hoveredId !== null && hoveredId !== service.id ? 'scale-95 opacity-50' : ''
+                  } ${hoveredId === service.id ? 'scale-105 z-10' : ''}`}
+                  style={{
+                    width: service.size.width,
+                    height: service.size.height,
+                    left: `${centeredLeft}px`,
+                    top: service.size.top || '0px'
+                  }}
+                  onMouseEnter={() => setHoveredId(service.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                >
+                  <img 
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className={`absolute inset-0 bg-black/50 flex flex-col justify-end p-6 transition-opacity duration-300 ${
+                    hoveredId === service.id ? 'opacity-100' : 'opacity-0'
+                  }`}>
+                    <h3 className="text-white text-2xl font-normal mb-2">{service.title}</h3>
+                    <p className="text-[#DDB9A2] text-sm">{service.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

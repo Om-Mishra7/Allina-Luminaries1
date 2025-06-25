@@ -48,7 +48,7 @@ export const FutureServices = () => {
   // Calculate dynamic image transform based on expanded content
   const expandedCount = openItems.length;
   // Calculate translateY to center image relative to accordion content
-  const baseOffset = expandedCount > 0 ? (expandedCount * 50) + 80 : 0;
+  const baseOffset = expandedCount > 0 ? (expandedCount * 40) + 60 : 0;
   const imageTransform = `translateY(${baseOffset}px)`;
 
   return (
@@ -94,7 +94,7 @@ export const FutureServices = () => {
             {/* Left side - Image */}
             <div className="flex-shrink-0 w-[350px] lg:w-[500px] xl:w-[500px] mx-auto md:mx-0 flex justify-center">
               <div 
-                className="w-[350px] h-[450px] lg:w-[500px] lg:h-[650px] xl:w-[500px] xl:h-[650px] bg-cover bg-center rounded-lg"
+                className="w-[350px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[500px] xl:h-[550px] bg-cover bg-center rounded-lg"
                 style={{
                   backgroundImage: 'url(https://c.animaapp.com/zheglGTa/img/unsplash-xu5mqq0chck.png)',
                   transform: imageTransform,
@@ -108,7 +108,7 @@ export const FutureServices = () => {
               <Accordion type="multiple" value={openItems} onValueChange={handleAccordionChange}>
                 {values.map((value, idx) => (
                   <AccordionItem key={idx} value={idx.toString()} className="border-b border-white/30">
-                    <AccordionTrigger className="flex items-center gap-6 py-6">
+                    <AccordionTrigger className="flex items-center gap-6 py-6" iconColor="#ffffff">
                       <span className="text-white text-[20px] lg:text-[24px] xl:text-[28px] font-normal min-w-[60px] lg:min-w-[80px]"
                         style={{ fontFamily: 'Myriad Pro, Helvetica, Arial, sans-serif', fontWeight: 400 }}>
                         {value.num}
